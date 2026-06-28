@@ -1,0 +1,632 @@
+:root {
+    --primary-color: rgb(255, 255, 255);
+    --secondary-color: rgb(0, 0, 0);
+
+    --bg-color: rgb(244, 247, 246);
+
+    --fade-txt-color: rgb(105, 105, 105);
+
+    --login-btn-color: rgb(39, 87, 179);
+    --register-btn-color: rgb(69, 168, 69);
+    --logout-btn-color: rgb(153, 27, 27);
+    /* --add-btn-color: rgb(0, 0, 0); */
+    --add-btn-color: rgb(60, 130, 246);
+    --options-color: rgba(60, 131, 246, 0.2);
+
+    --font: 'Segoe UI', sans-serif;
+    --font-size-s: 0.8rem;
+    --font-size-m: 1rem;
+    --font-size-l: 1.2rem;
+    --font-size-xl: 1.5rem;
+    --font-size-xxl: 2rem;
+
+    --font-w-s: 400;
+    --font-w-m: 500;
+    --font-w-l: 600;
+    --font-w-xl: 700;
+    --font-w-xxl: 900;
+
+    --radius: 0.5rem;
+    --radius-s: 0.25rem;
+
+    --shadow: 0 0 0.5rem 0.5rem;
+    --shadow-s: 0 0 0.2rem 0.2rem;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+
+    --transition-speed: 0.3s;
+}
+
+.dark {
+    --primary-color: rgb(0, 0, 0);
+    --secondary-color: rgb(255, 255, 255);
+
+    --bg-color: rgb(4, 7, 6);
+
+    /* --add-btn-color: rgb(60, 130, 246); */
+
+    --shadow-color: rgba(255, 255, 255, 0.1);
+}
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100vw;
+    min-height: 100vh;
+    scroll-behavior: smooth;
+    font-family: var(--font);
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    transition: background-color var(--transition-speed), color var(--transition-speed);
+}
+
+body {
+    position: relative;
+}
+
+
+.hero {
+    width: 100%;
+    min-height: 100vh;
+    display: none;
+    flex-flow: row nowrap;
+    align-items: flex-start;
+    background-color: var(--bg-color);
+}
+
+
+/* #region SIDE BAR */
+.hero aside {
+    background-color: var(--primary-color);
+    width: auto;
+    max-width: 250px;
+    height: 100dvh;
+    border-right: 2px solid var(--shadow-color);
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.hero aside .top {
+    width: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: flex-start;
+    gap: 2.5rem;
+}
+
+.hero aside .top .logo {
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.hero aside .top .logo i {
+    font-size: var(--font-size-xxl);
+}
+
+.hero aside .top .logo .title {
+    display: none;
+    flex-flow: column nowrap;
+    align-items: flex-start;
+}
+
+.hero aside .top .logo .title .head {
+    font-size: var(--font-size-l);
+    font-weight: var(--font-w-m);
+}
+
+.hero aside .top .logo .title .sub {
+    font-size: var(--font-size-s);
+    font-weight: var(--font-w-s);
+    color: var(--fade-txt-color);
+    margin-top: -0.2rem;
+}
+
+
+.hero aside .top .options {
+    /* display: none; */
+    width: 100%;
+}
+
+.hero aside .top .options ul {
+    list-style: none;
+    text-decoration: none;
+    width: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: flex-start;
+    justify-content: flex-start;
+    color: var(--fade-txt-color);
+    gap: 0.5rem;
+}
+
+.hero aside .top .options ul li {
+    width: 100%;
+    font-size: var(--font-size-m);
+    font-weight: var(--font-w-l);
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius);
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+    cursor: pointer;
+    transition: all ease-in-out var(--transition-speed);
+}
+
+.hero aside .top .options ul li span {
+    display: none;
+}
+
+.hero aside .top .options ul li:hover {
+    background-color: var(--options-color);
+    color: var(--add-btn-color);
+}
+
+.options-li-active {
+    background-color: var(--options-color);
+    color: var(--add-btn-color);
+}
+
+
+.hero aside .bottom {
+    width: 100%;
+}
+
+.hero aside .bottom button {
+    width: 100%;
+    border: none;
+    outline: none;
+    padding: 0.8rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    border-radius: var(--radius);
+    background-color: var(--add-btn-color);
+    color: whitesmoke;
+    font-size: var(--font-size-m);
+    font-weight: var(--font-w-l);
+    box-shadow: var(--shadow-s) var(--shadow-color);
+    transition: all ease-in-out var(--transition-speed);
+}
+
+.hero aside .bottom button span {
+    display: none;
+}
+
+/* #endregion SIDE BAR */
+
+
+#main {
+    flex: 1;
+    min-height: 100vh;
+}
+
+
+/* #region NAV BAR  */
+.hero #main nav {
+    background-color: var(--primary-color);
+    width: 100%;
+    border-bottom: 2px solid var(--shadow-color);
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.hero #main nav .right {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    gap: 1rem;
+}
+
+
+.hero #main nav .right .username {
+    padding: 0.5rem 1rem;
+    font-size: var(--font-size-m);
+    font-weight: var(--font-w-l);
+    border-right: 2px solid var(--shadow-color);
+}
+
+.hero #main nav .right #theme {
+    border: none;
+    outline: none;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius);
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    cursor: pointer;
+    font-size: var(--font-size-m);
+    font-weight: var(--font-w-l);
+    box-shadow: var(--shadow-s) var(--shadow-color);
+    transition: all ease-in-out var(--transition-speed);
+}
+
+.hero #main nav .right #logout {
+    border: none;
+    outline: none;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius);
+    background-color: var(--logout-btn-color);
+    color: whitesmoke;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    cursor: pointer;
+    font-size: var(--font-size-m);
+    font-weight: var(--font-w-l);
+    box-shadow: var(--shadow-s) var(--shadow-color);
+    transition: all ease-in-out var(--transition-speed);
+}
+
+.hero #main nav .right #logout span {
+    display: none;
+}
+
+/* #endregion NAV BAR  */
+
+
+/* #region MAIN CARD SECTION */
+#mainSection {
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 2rem;
+    padding: 1rem 2rem;
+}
+
+#mainSection>h1 {
+    font-size: var(--font-size-xxl);
+    font-weight: var(--font-w-xl);
+}
+
+#mainSection>p {
+    font-size: var(--font-size-m);
+    font-weight: var(--font-w-m);
+    color: var(--fade-txt-color);
+    margin-top: -1.8rem;
+}
+
+
+#mainSection #cards {
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+#mainSection #cards .card {
+    flex-shrink: 0;
+    width: calc((100% - 2rem)/1);
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1rem 2rem;
+    background-color: var(--primary-color);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-s) var(--shadow-color);
+    transition: all ease-in-out var(--transition-speed);
+}
+#mainSection #cards .card:hover {
+    box-shadow: none;
+}
+
+#mainSection #cards .card i {
+    font-size: var(--font-size-xxl);
+    /* background-color: blue; */
+    padding: 0.5rem;
+    border-radius: var(--radius);
+}
+
+#mainSection #cards .card p {
+    font-size: var(--font-size-m);
+    font-weight: var(--font-w-m);
+    color: var(--fade-txt-color);
+}
+
+#mainSection #cards .card h1 {
+    font-size: var(--font-size-xxl);
+    font-weight: var(--font-w-xl);
+    margin-top: -0.8rem;
+}
+
+
+#cards>#balance>i {
+    color: rgb(60, 130, 246);
+    background-color: rgba(60, 130, 246, 0.2);
+}
+#cards>#balance>#amtBalance {
+    color: rgb(60, 130, 246);
+}
+
+#cards>#income>i {
+    color: rgb(69, 168, 69);
+    background-color: rgba(69, 168, 69, 0.2);
+}
+#cards>#income>#amtIncome {
+    color: rgb(69, 168, 69);
+}
+
+#cards>#expense>i {
+    color: rgb(153, 27, 27);
+    background-color: rgba(153, 27, 27, 0.2);
+}
+#cards>#expense>#amtExpense {
+    color: rgb(153, 27, 27);
+}
+
+#cards>#transaction>i {
+    color: rgb(39, 87, 179);
+    background-color: rgba(39, 88, 179, 0.2);
+}
+#cards>#transaction>#cntTransaction {
+    color: rgb(39, 87, 179);
+}
+/* #endregion MAIN CARD SECTION */
+
+
+/* #region GRAPH & PREFERENCES SECTION */
+
+#graphSection {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 1rem;
+    padding: 1rem 2rem;
+}
+
+#graphSection #graph {
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    border-radius: var(--radius);
+    font-size: var(--font-size-m);
+    font-weight: var(--font-w-m);
+    color: var(--secondary-color);
+    background-color: var(--primary-color);
+    box-shadow: var(--shadow-s) var(--shadow-color);
+    transition: all ease-in-out var(--transition-speed);
+    cursor: pointer;
+}
+
+
+#graphSection #preference {
+    width: auto;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 1rem;
+    padding: 2rem 1.5rem;
+    border-radius: var(--radius);
+    font-size: var(--font-size-m);
+    font-weight: var(--font-w-m);
+    background-color: var(--primary-color);
+    box-shadow: var(--shadow-s) var(--shadow-color);
+}
+#graphSection #preference h1 {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-w-xl);
+}
+#graphSection #preference h3 {
+    width: 100%;
+    padding-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: var(--font-size-m);
+    font-weight: var(--font-w-xl);
+    border-bottom: 2px solid var(--shadow-color);
+}
+#graphSection #preference h3 #themeToggler {
+    background-color: red;
+    padding: 0 2rem;
+}
+#reset {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: var(--radius);
+    background-color: rgba(153, 27, 27, 0.2);;
+    color: rgb(153, 27, 27);;
+    font-size: var(--font-size-m);
+    font-weight: var(--font-w-l);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    cursor: pointer;
+    box-shadow: var(--shadow-s) var(--shadow-color);
+    transition: all ease-in-out var(--transition-speed);
+}
+
+/* #endregion GRAPH & PREFERENCES SECTION */
+
+
+/* #region FORMS */
+main {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--bg-color);
+}
+
+.loginSignup {
+    width: 80%;
+    max-width: 350px;
+    /* border: 2px solid var(--secondary-color); */
+    margin: 0.5rem 0;
+    padding: 2rem 0.5rem 3rem 0.5rem;
+    border-radius: var(--radius);
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: var(--shadow) var(--shadow-color);
+    transition: all ease-in-out var(--transition-speed);
+}
+
+.loginSignup .loginSignupTitle {
+    font-size: var(--font-size-xl);
+}
+
+.loginSignup .loginSignupHead {
+    font-size: var(--font-size-m);
+}
+
+.loginSignup form {
+    flex: 0;
+    width: 100%;
+    padding: 0 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.loginSignup form div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.loginSignup form div input {
+    flex: 0;
+    width: 100%;
+    padding: 0.5rem;
+    border: none;
+    border-radius: var(--radius-s);
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    box-shadow: var(--shadow-s) var(--shadow-color);
+    transition: all ease-in-out var(--transition-speed);
+}
+
+.loginSignup form button {
+    flex: 0;
+    width: 100%;
+    padding: 0.5rem;
+    outline: none;
+    border: none;
+    border-radius: var(--radius);
+    /* color: var(--primary-color); */
+    color: whitesmoke;
+    font-size: var(--font-size-s);
+    font-weight: var(--font-w-l);
+    ;
+    box-shadow: var(--shadow-s) var(--shadow-color);
+    transition: all ease-in-out var(--transition-speed);
+}
+
+#loginBtn {
+    background-color: var(--login-btn-color);
+}
+
+#signupBtn {
+    display: none;
+    background-color: var(--register-btn-color);
+}
+
+.loginSignup p {
+    font-size: var(--font-size-s);
+}
+
+.loginSignup p #anchor {
+    color: var(--login-btn-color);
+    cursor: pointer;
+}
+
+/* #endregion FORMS */
+
+
+button:active,
+button:hover {
+    box-shadow: none !important;
+    transform: scale(0.98);
+}
+
+/* #region Responsive Media Query */
+/* Tablets */
+@media (min-width: 768px) {
+
+
+    #mainSection #cards .card {
+        width: calc((100% - 2rem)/2);
+    }
+
+}
+
+/* Laptops */
+@media (min-width: 1024px) {
+
+    .hero aside {
+        width: 35%;
+    }
+
+    .hero aside .top .logo {
+        justify-content: flex-start;
+    }
+
+    .hero aside .top .logo .title {
+        display: flex;
+    }
+
+    .hero aside .top .options ul li span {
+        display: block;
+    }
+
+    .hero aside .bottom button span {
+        display: block;
+    }
+
+    .hero #main nav .right #logout span {
+        display: block;
+    }
+
+
+    #mainSection #cards .card {
+        width: calc((100% - 3rem)/4);
+    }
+}
+
+/* Desktops */
+@media (min-width: 1200px) {    
+    #mainSection #cards .card {
+        width: calc((100% - 3rem)/4);
+    }
+}
+
+/* #endregion responsive */

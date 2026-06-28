@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinTrack Pro</title>
+    <link rel="shortcut icon" href="./assests/stack-fill.svg" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+    <link preload href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css" rel="stylesheet" />
+</head>
+
+<body>
+
+    <!-- #region HOME-PAGE -->
+    <div class="hero">
+        <!-- #region SIDE BAR -->
+        <aside>
+            <div class="top">
+                <div class="logo">
+                    <i class="ri-stack-fill"></i>
+                    <div class="title">
+                        <span class="head">FinTrack Pro</span>
+                        <span class="sub">Enterprise Finance</span>
+                    </div>
+                </div>
+                <div class="options">
+                    <ul>
+                        <li class="options-li-active"><i class="ri-layout-grid-line"></i><span>Dashboard</span></li>
+                        <li><i class="ri-settings-3-fill"></i><span>Settings</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="bottom">
+                <button id="addTran"><i class="ri-add-large-fill"></i> <span>Add Transaction</span></button>
+            </div>
+        </aside>
+        <!-- #endregion SIDE BAR -->
+
+        <!-- #region MAIN CONTENT -->
+        <div id="main">
+            <!-- #region NAV BAR -->
+            <nav>
+                <div class="right">
+                    <p class="username">Guest</p>
+                    <button id="theme"><i class="ri-moon-fill"></i></button>
+                    <button id="logout"><i class="ri-logout-box-r-line"></i><span>Logout</span></button>
+                </div>
+            </nav>
+            <!-- #endregion NAV BAR -->
+
+            <!-- #region MAIN CARD SECTION -->
+            <section id="mainSection">
+                <h1>Financial Overview</h1>
+                <p>Real-time tracking application</p>
+                <div id="cards">
+                    <div class="card" id="balance">
+                        <i class="ri-bank-fill"></i>
+                        <p>Current Balance</p>
+                        <h1 id="amtBalance"><span class="currency">$</span> 0.00</h1>
+                    </div>
+
+                    <div class="card" id="income">
+                        <i class="ri-refund-2-line"></i>
+                        <p>Total Income</p>
+                        <h1 id="amtIncome"><span class="currency">$</span> 0.00</h1>
+                    </div>
+
+                    <div class="card" id="expense">
+                        <i class="ri-wallet-fill"></i>
+                        <p>Total Expense</p>
+                        <h1 id="amtExpense"><span class="currency">$</span> 0.00</h1>
+                    </div>
+
+                    <div class="card" id="transaction">
+                        <i class="ri-exchange-funds-line"></i>
+                        <p>Total Transactions</p>
+                        <h1 id="cntTransaction">0</h1>
+                    </div>
+                </div>
+            </section>
+            <!-- #endregion MAIN CARD SECTION -->
+
+            <!-- #region GRAPH & PREFERENCE SECTION -->
+            <section id="graphSection">
+                <div id="graph">
+                    <canvas id="myChart"></canvas>
+                </div>
+                <div id="preference">                 
+                    <h1>Preferences</h1>
+                    <h3><span>Dark Mode</span><span id="themeToggler"></span></h3>
+                    <button id="reset"><i class="ri-delete-bin-7-fill"></i><span>Reset All Data</span></button>
+                </div>
+            </section>
+            <!-- #endregion GRAPH & PREFERENCE SECTION -->
+
+        </div>
+        <!-- #endregion MAIN CONTENT -->
+
+
+    </div>
+    <!-- #endregion HOME-PAGE -->
+
+
+    <!-- SETTING-PAGE -->
+    <!-- SETTING-PAGE -->
+
+    <main>
+        <!-- #region LOGIN & SIGNUP-PAGE -->
+        <div class="loginSignup">
+            <h1 class="loginSignupTitle">Welcome Back</h1>
+            <p class="loginSignupHead">Login to FinTrack Pro</p>
+            <form action="">
+                <div>
+                    <label for="name" class="loginSignupUsername">Username</label>
+                    <input type="text" name="name" class="loginSignupInpUsername">
+                </div>
+                <div>
+                    <label for="pass" class="loginSignupPassword">Password</label>
+                    <input type="password" name="pass" id="loginSignupInpPassword">
+                </div>
+                <button type="submit" id="loginBtn" class="loginSignupBtn">Login</button>
+
+                <button id="signupBtn"" class=" loginSignupBtn">Register</button>
+            </form>
+
+            <p><span id="spanBottom">Don't have an account?</span> <span id="anchor">Register here</span></p>
+        </div>
+        <!-- #endregion LOGIN & SIGNUP-PAGE -->
+    </main>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
