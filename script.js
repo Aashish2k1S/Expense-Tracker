@@ -1,4 +1,3 @@
-
 // #region selectors 
 const
     body = document.body,
@@ -6,7 +5,7 @@ const
 
 const
     loginSignup = document.querySelector('.loginSignup'),
-    form = document.querySelector('form'),
+    loginSignupForm = document.querySelector('#loginSignupForm'),
     loginSignupTitle = document.querySelector('.loginSignupTitle'),
     loginSignupHead = document.querySelector('.loginSignupHead'),
     loginSignupUsername = document.querySelector('.loginSignupUsername'),
@@ -20,38 +19,44 @@ const
 
 const
     dashboard = document.querySelector('#dashboard'),
-    theme = document.querySelector('#theme'),
+    userId = document.querySelector('#userId'),
+    userName = document.querySelector('#userName'),
+    // theme = document.querySelector('#theme'),
     addTran = document.querySelector('#addTran'),
     logout = document.querySelector('#logout');
 
 const
-    graph = document.querySelector('#myChart');
+    graph = document.querySelector('#myChart'),
+    themeSwitch = document.querySelector('#themeToggler'),
+    reset = document.querySelector('#reset');
 
-const 
+
+const
     setting = document.querySelector('#setting');
 
 // #endregion selectors 
 
 
 // #region to be removed
-setting.style.display = 'none';
-dashboard.style.display = 'block';
+// setting.style.display = 'none';
+// dashboard.style.display = 'block';
 
-// setting.style.display = 'block';
-// dashboard.style.display = 'none';
+// // setting.style.display = 'block';
+// // dashboard.style.display = 'none';
 
-hero.style.display = 'flex';
-main.style.display = "none";
-body.classList.toggle('dark');
+// hero.style.display = 'flex';
+// main.style.display = "none";
+// body.classList.toggle('dark');
 // #endregion to be removed
 
+theme.style.display = 'none';
 
-
-function User(id, name, password, isDark, transactions) {
+function User(id, username, password, isDark = false, currency = `inr`, transactions = [], isLoggedIn = false) {
     this.id = id;
-    this.name = name;
+    this.username = username;
     this.password = password;
     this.isDark = Boolean(isDark);
+    this.currency = currency;
     this.transactions = transactions;
 }
 function Transaction(id, amount, type, category, date, description) {
@@ -63,105 +68,152 @@ function Transaction(id, amount, type, category, date, description) {
     this.description = description;
 }
 
+const
+    currency = [`usd`, `eur`, `gbp`, `inr`, `jpy`],
+    type = [`income`, `expense`],
+    category = [`Food & Dining`, `Shopping`, `Recharge`, `Petrol & Auto`, `Utilities`, `Salary`, `Entertainment`, `Other`];
+
+let userData = [];
+
+if (localStorage.getItem('userData')) userData = JSON.parse(localStorage.getItem('userData'));
 
 
-function themeToggle() {
-    if (body.classList.toggle('dark')) {
-        theme.innerHTML = `<i class="ri-sun-fill"></i>`;
+function themeToggle(flag) {
+    if (flag) {
+        body.classList.add('dark')
+        // theme.innerHTML = `<i class="ri-sun-fill"></i>`;
+        themeSwitch.setAttribute('checked', 'true');
     }
     else {
-        theme.innerHTML = `<i class="ri-moon-fill"></i>`;
+        body.classList.remove('dark')
+        // theme.innerHTML = `<i class="ri-moon-fill"></i>`;
+        themeSwitch.removeAttribute('checked');
     }
 }
 
 
-function graphrender() {
-    const ctx = graph.getContext('2d');
+function register(event) {
+    event.preventDefault();
+    let
+        username = event.target[0].value,
+        password = event.target[1].value;
 
-    // If an existing chart instance is on this canvas, destroy it first to prevent ghosting
-    const existingChart = Chart.getChart(ctx);
-    if (existingChart) {
-        existingChart.destroy();
+    // console.log(username);
+    // console.log(password);
+
+    let usernameTaken = userData.filter((user) => user.username === username).length;
+    if (usernameTaken) {
+        alert('username already exists!!!');
+        return;
     }
+
+    let newUserID = 1;
+    if (userData.length > 0) newUserID = Math.max(...userData.map(user => user.id)) + 1;
+
+    const newUser = new User(newUserID, username, password);
+
+    userData.push(newUser);
+    localStorage.setItem('userData', JSON.stringify(userData));
+
+    alert('Registration successful!');
+    authToggle(false);
+}
+
+function login(event) {
+    event.preventDefault();
+    let
+        username = event.target[0].value,
+        password = event.target[1].value;
+
+    // console.log(username);
+    // console.log(password);
+
+    let userCheck = userData.filter((user) => (user.username === username && user.password === password));
+
+    if (!userCheck.length) {
+        alert('Invalid username or password!!!');
+        return;
+    }
+    let
+        idx = userData.indexOf(userCheck[0]),
+        userID = userCheck[0].id;
+
+    userData[idx].isLoggedIn = true;
+    localStorage.setItem('userData', JSON.stringify(userData));
+
+    render(userID);
+
+    // alert('logged in successfully');
+    authToggle(false);
+}
+
+
+function render(id) {
+    let idx = userData.findIndex((user) => user.id === id);    
+
+    hero.style.display = "flex";
+    main.style.display = "none";
+
+    themeToggle(userData[idx].isDark);
+
+    userId.textContent = id;
+    userName.textContent = userData[idx].username;
+
+    let transaction = userData[idx].transactions;
+    graphrender(transaction);
+}
+
+
+function graphrender(transactions) {
+    let income = 0, expense = 0;
+
+    if (transactions.length) {
+        income = transactions.filter((e) => e.type === 'income').reduce((a, b) => a + b.amount, 0);
+        expense = transactions.filter((e) => e.type === 'expense').reduce((a, b) => a + b.amount, 0);
+    }
+
+    const ctx = graph.getContext('2d');
+    const existingChart = Chart.getChart(ctx);
+    if (existingChart) existingChart.destroy();
 
     new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: [''], 
+            labels: [''],
             datasets: [
-                {
-                    label: 'Income',
-                    data: [213213], // Updated to match your table data magnitude
-                    backgroundColor: 'rgba(69, 168, 69, 0.8)',
-                    borderColor: 'rgba(69, 168, 69, 1)',
-                    borderWidth: 1
-                },
-                {
-                    label: 'Expenses',
-                    data: [12313], // Updated to match your table data magnitude
-                    backgroundColor: 'rgba(153, 27, 27, 0.8)',
-                    borderColor: 'rgba(153, 27, 27, 1)',
-                    borderWidth: 1
-                }
-            ]             
+                { label: 'Income', data: [income], backgroundColor: 'rgba(69, 168, 69, 0.8)' },
+                { label: 'Expenses', data: [expense], backgroundColor: 'rgba(153, 27, 27, 0.8)' }
+            ]
         },
         options: {
             responsive: true,
             maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    display: true, 
-                    position: 'top',
-                    labels: {
-                        color: '#94a3b8' // Matches your UI text theme color
-                    }
-                }
-            },
-            scales: {
-                x: {
-                    // Controls how wide the group cluster is inside the empty label slot
-                    categoryPercentage: 0.4, 
-                    // Controls how wide individual bars are relative to each other
-                    barPercentage: 0.8, 
-                    grid: {
-                        display: false // Cleans up the background X grid line
-                    },
-                    title: {
-                        display: true,
-                        text: 'Income vs Expenses',
-                        color: '#94a3b8',
-                        font: {
-                            weight: 'bold'
-                        }
-                    },
-                    ticks: { color: '#94a3b8' }
-                },
-                y: { 
-                    beginAtZero: true,
-                    grid: {
-                        color: 'rgba(255, 255, 255, 0.05)' // Subtle dark theme grid lines
-                    },
-                    ticks: { color: '#94a3b8' }
-                }
-            }
+            plugins: { legend: { display: true, position: 'top' } },
+            scales: { x: { title: { display: true, text: 'Income vs Expenses' } } }
         }
     });
 }
 
-function render() {
-    graphrender();
-}
-
-
 function pageLoad() {
-    render();
+    let user = userData.filter((user) => user.isLoggedIn);
+    if (!user.length) {
+        hero.style.display = "none";
+        main.style.display = "flex";
+        themeToggle(false);
+        return;
+    }
+    else {
+        render(user[0].id);
+        return;
+    }
 }
 
 pageLoad();
 
 
 
-function toggle(flag) {
+function authToggle(flag) {
+    loginSignupForm.reset();
     loginSignupTitle.textContent =
         (flag ? "Create Account" : "Welcome Back");
     loginSignupHead.textContent =
@@ -176,31 +228,48 @@ function toggle(flag) {
         (flag ? 'Already have an account?' : 'Don\'t have an account?');
     anchor.textContent = (flag ? 'Login here' : 'Register here');
 }
-form.addEventListener('submit', (e) => {
+
+
+
+
+loginSignupForm.addEventListener('submit', (e) => {
     e.preventDefault();
     // console.log(e);
     // if (e.target.matches('#loginBtn')) {
 
-    if (e.submitter.matches('#loginBtn')) {
-        // alert('login');
-        hero.style.display = "flex";
-        main.style.display = "none";
-        form.reset();
-        render();
-    }
-    else if (e.submitter.matches('#signupBtn')) {
-        // alert('signup');
-        toggle(false);
-        form.reset();
-    }
+    if (e.submitter.matches('#loginBtn')) login(e);
+    else if (e.submitter.matches('#signupBtn')) register(e);
+
 });
-anchor.addEventListener('click', () => {
-    toggle(anchor.textContent.toLowerCase() === 'register here');
-});
-theme.addEventListener('click', themeToggle);
+
+anchor.addEventListener('click', () => authToggle(anchor.textContent.toLowerCase() === 'register here'));
+
+
 logout.addEventListener('click', () => {
+    let idx = userData.findIndex((user) => user.id === Number(userId.textContent));
+    userData[idx].isLoggedIn = false;
+    localStorage.setItem('userData', JSON.stringify(userData)); 
+    themeToggle(false);
+
     hero.style.display = "none";
     main.style.display = "flex";
 });
 
 
+// theme.addEventListener('click', themeToggle);
+themeSwitch.addEventListener('change', (e) => {
+    let idx = userData.findIndex((user) => user.id === Number(userId.textContent));
+    userData[idx].isDark = e.target.checked;
+    localStorage.setItem('userData', JSON.stringify(userData));
+    themeToggle(e.target.checked);
+});
+
+
+reset.addEventListener('click', () => {
+    let consent = confirm('Are sure you want to delete entire transaction history?');
+    if (!consent) return;
+
+    let idx = userData.findIndex((user) => user.id === Number(userId.textContent));
+    userData[idx].transactions = [];
+    localStorage.setItem('userData', JSON.stringify(userData));
+});

@@ -314,11 +314,13 @@ body {
 }
 
 #mainSection>h1 {
+    width: 100%;
     font-size: var(--font-size-xxl);
     font-weight: var(--font-w-xl);
 }
 
 #mainSection>p {
+    width: 100%;
     font-size: var(--font-size-m);
     font-weight: var(--font-w-m);
     color: var(--fade-txt-color);
@@ -328,16 +330,12 @@ body {
 
 #mainSection #cards {
     width: 100%;
-    display: flex;
-    flex-flow: row wrap;
-    align-items: flex-start;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
     gap: 1rem;
 }
 
 #mainSection #cards .card {
-    flex-shrink: 0;
-    width: calc((100% - 2rem)/1);
     display: flex;
     flex-flow: column nowrap;
     align-items: flex-start;
@@ -352,7 +350,6 @@ body {
 
 #mainSection #cards .card:hover {
     box-shadow: none;
-    transform: scale(1.1), translateY(-5px);
 }
 
 #mainSection #cards .card i {
@@ -433,13 +430,13 @@ body {
     flex-flow: column nowrap;
     align-items: flex-start;
     justify-content: flex-start;
-    gap: 2rem;
+    gap: 1rem;
     padding: 0 2rem 2rem 2rem;
 }
 
 #graphSection .graph-wrapper {
     width: 100%;
-    padding: 0 1rem;    
+    padding: 0 1rem 1rem 1rem;
     display: flex;
     flex-flow: column nowrap;
     align-items: flex-start;
@@ -544,11 +541,11 @@ body {
     border-radius: 50%;
 }
 
-.switch input:checked + .slider {
-    background-color: var(--add-btn-color); 
+.switch input:checked+.slider {
+    background-color: var(--add-btn-color);
 }
 
-.switch input:checked + .slider::before {
+.switch input:checked+.slider::before {
     transform: translateX(1.5rem);
 }
 
@@ -601,6 +598,7 @@ body {
     background-color: var(--primary-color);
     box-shadow: var(--shadow-s) var(--shadow-color);
 }
+
 #transactionSection::-webkit-scrollbar {
     display: none;
 }
@@ -776,8 +774,8 @@ body {
 
 
 #setting {
-    display: block;
-    /* display: none; */
+    /* display: block; */
+    display: none;
     width: 100%;
     max-width: 1200px;
     min-height: 100vh;
@@ -883,7 +881,7 @@ body {
     color: var(--secondary-color);
     font-size: var(--font-size-m);
     font-weight: var(--font-w-m);
-    cursor: pointer;   
+    cursor: pointer;
     box-shadow: var(--shadow-s) var(--shadow-color);
     transition: all ease-in-out var(--transition-speed);
 }
@@ -952,17 +950,19 @@ body {
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
-    
+
     color: var(--secondary-color);
     font-size: var(--font-size-xl);
     font-weight: var(--font-w-xl);
 }
+
 #addTransaction .top i {
     color: var(--fade-txt-color);
     transform: scale(0.8);
     transition: all ease-in-out var(--transition-speed);
     cursor: pointer;
 }
+
 #addTransaction .top i:hover {
     color: var(--secondary-color);
     transform: scale(1);
@@ -1015,7 +1015,7 @@ body {
 #addTransaction form select,
 #addTransaction form button {
     width: 100%;
-    box-sizing: border-box; 
+    box-sizing: border-box;
     color: var(--secondary-color);
     outline: none;
     border: none;
@@ -1024,6 +1024,7 @@ body {
     background-color: transparent;
     box-shadow: var(--shadow-s) var(--shadow-color);
 }
+
 #addTransaction form button {
     color: var(--primary-color);
     background-color: var(--secondary-color);
@@ -1160,8 +1161,8 @@ button:hover {
 /* #region Responsive Media Query */
 /* Tablets */
 @media (min-width: 768px) {
-    #mainSection #cards .card {
-        width: calc((100% - 2rem)/2);
+    #mainSection #cards {
+        grid-template-columns: repeat(2, 1fr);
     }
 
     #graphSection {
@@ -1172,7 +1173,7 @@ button:hover {
     #graphSection .graph-wrapper {
         width: 70%;
         height: 15rem;
-        /* padding: 0 1rem; */
+        padding: 0 1rem;
     }
 
     #graphSection #preference {
@@ -1208,19 +1209,17 @@ button:hover {
         display: block;
     }
 
-    #mainSection #cards .card {
-        width: calc((100% - 3rem)/4);
+    
+    #mainSection #cards {
+        grid-template-columns: repeat(4, 1fr);
     }
+
     #settingPanel form .inputs-div {
         flex-flow: row nowrap;
     }
 }
 
 /* Desktops */
-@media (min-width: 1200px) {
-    #mainSection #cards .card {
-        width: calc((100% - 3rem)/4);
-    }
-}
+@media (min-width: 1200px) { }
 
 /* #endregion responsive */

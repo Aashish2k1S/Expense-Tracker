@@ -45,7 +45,8 @@
             <!-- #region NAV BAR -->
             <nav>
                 <div class="right">
-                    <p class="username">Guest</p>
+                    <p id="userId" style="display: none;">0</p>
+                    <p id="userName">Guest</p>
                     <button id="theme"><i class="ri-moon-fill"></i></button>
                     <button id="logout">
                         <i class="ri-logout-box-r-line"></i>
@@ -105,7 +106,7 @@
                         <h3>
                             <span>Dark Mode</span>
                             <label class="switch">
-                                <input type="checkbox" id="themeToggler" checked>
+                                <input type="checkbox" id="themeToggler">
                                 <span class="slider"></span>
                             </label>
                         </h3>
@@ -135,6 +136,7 @@
                         <table id="transactionsList">
                             <thead>
                                 <tr>
+                                    <th style="display: none;">ID</th>
                                     <th>DATE</th>
                                     <th>DESCRIPTION</th>
                                     <th>CATEGORY</th>
@@ -144,6 +146,7 @@
                             </thead>
                             <tbody>
                                 <tr>
+                                    <td style="display: none;">0</td>
                                     <td>2026-06-29</td>
                                     <td>asdasdas</td>
                                     <td><span class="category-pill shopping">Shopping</span></td>
@@ -186,11 +189,11 @@
                                 <div id="currencySettingDiv">
                                     <label for="currency" id="currencySettingLbl">Currency</label>
                                     <select name="currency" id="currencySettingInp">
-                                        <option value="inr">USD ($)</option>
-                                        <option value="inr">EUR (€)</option>
-                                        <option value="inr">GBP (£)</option>
+                                        <option value="usd">USD ($)</option>
+                                        <option value="eur">EUR (€)</option>
+                                        <option value="gbp">GBP (£)</option>
                                         <option value="inr">INR (₹)</option>
-                                        <option value="inr">JPY (¥)</option>
+                                        <option value="jpy">JPY (¥)</option>
                                     </select>
                                 </div>
                             </div>
@@ -268,14 +271,14 @@
         <div class="loginSignup">
             <h1 class="loginSignupTitle">Welcome Back</h1>
             <p class="loginSignupHead">Login to FinTrack Pro</p>
-            <form action="">
+            <form action="" id="loginSignupForm">
                 <div>
                     <label for="name" class="loginSignupUsername">Username</label>
-                    <input type="text" name="name" class="loginSignupInpUsername">
+                    <input type="text" name="name" id="loginSignupInpUsername" required autocomplete="off">
                 </div>
                 <div>
                     <label for="pass" class="loginSignupPassword">Password</label>
-                    <input type="password" name="pass" id="loginSignupInpPassword">
+                    <input type="password" name="pass" id="loginSignupInpPassword" required>
                 </div>
                 <button type="submit" id="loginBtn" class="loginSignupBtn">Login</button>
 
