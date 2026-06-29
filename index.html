@@ -8,12 +8,15 @@
     <link rel="shortcut icon" href="./assests/stack-fill.svg" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
     <link preload href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css" rel="stylesheet" />
+    <link preload href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
+    <link preload href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
 </head>
 
 <body>
 
     <!-- #region HOME-PAGE -->
     <div class="hero">
+
         <!-- #region SIDE BAR -->
         <aside>
             <div class="top">
@@ -44,147 +47,221 @@
                 <div class="right">
                     <p class="username">Guest</p>
                     <button id="theme"><i class="ri-moon-fill"></i></button>
-                    <button id="logout"><i class="ri-logout-box-r-line"></i><span>Logout</span></button>
+                    <button id="logout">
+                        <i class="ri-logout-box-r-line"></i>
+                        <span>Logout</span>
+                    </button>
                 </div>
             </nav>
             <!-- #endregion NAV BAR -->
 
-            <!-- #region MAIN CARD SECTION -->
-            <section id="mainSection">
-                <h1>Financial Overview</h1>
-                <p>Real-time tracking application</p>
-                <div id="cards">
-                    <div class="card" id="balance">
-                        <i class="ri-bank-fill"></i>
-                        <p>Current Balance</p>
-                        <h1 id="amtBalance"><span class="currency">$</span> 0.00</h1>
-                    </div>
-
-                    <div class="card" id="income">
-                        <i class="ri-refund-2-line"></i>
-                        <p>Total Income</p>
-                        <h1 id="amtIncome"><span class="currency">$</span> 0.00</h1>
-                    </div>
-
-                    <div class="card" id="expense">
-                        <i class="ri-wallet-fill"></i>
-                        <p>Total Expense</p>
-                        <h1 id="amtExpense"><span class="currency">$</span> 0.00</h1>
-                    </div>
-
-                    <div class="card" id="transaction">
-                        <i class="ri-exchange-funds-line"></i>
-                        <p>Total Transactions</p>
-                        <h1 id="cntTransaction">0</h1>
-                    </div>
-                </div>
-            </section>
-            <!-- #endregion MAIN CARD SECTION -->
-
-            <!-- #region GRAPH & PREFERENCE SECTION -->
-            <section id="graphSection">
-                <div id="graph">
-                    <canvas id="myChart"></canvas>
-                </div>
-                <div id="preference">
-                    <h1>Preferences</h1>
-                    <h3><span>Dark Mode</span><span id="themeToggler"></span></h3>
-                    <button id="reset"><i class="ri-delete-bin-7-fill"></i><span>Reset All Data</span></button>
-                </div>
-            </section>
-            <!-- #endregion GRAPH & PREFERENCE SECTION -->
-
-            <!-- #region TRANSACTIONS SECTION -->
-            <div class="transaction-wrapper">
-                <section id="transactionSection">
-                    <div class="header">
-                        <h1 class="title">All Transactions</h1>
-                        <div class="filters">
-                            <div class="search">
-                                <i class="ri-search-line"></i>
-                                <input type="text" name="search" id="seacrhInp" placeholder="Search Transactions...">
-                            </div>
-                            <select name="filter" id="filterInp">
-                                <option value="">All</option>
-                                <option value="income">Incomes</option>
-                                <option value="expense">Expenses</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div id="transactionsList">
-                        <div class="list-head">
-                            <p>DATE</p>
-                            <p>DESCRIPTION</p>
-                            <p>CATEGORY</p>
-                            <p>AMOUNT</p>
-                            <p>ACTIONS</p>
+            <div id="dashboard">
+                <!-- #region MAIN CARD SECTION -->
+                <section id="mainSection">
+                    <h1>Financial Overview</h1>
+                    <p>Real-time tracking application</p>
+                    <div id="cards">
+                        <div class="card" id="balance">
+                            <!-- <i class="ri-bank-fill"></i> -->
+                            <i><span class="material-symbols-outlined">account_balance</span></i>
+                            <p>Current Balance</p>
+                            <h1 id="amtBalance"><span class="currency">$</span> 0.00</h1>
                         </div>
 
+                        <div class="card" id="income">
+                            <!-- <i class="ri-refund-2-line"></i> -->
+                            <i><span class="material-symbols-outlined">trending_up</span></i>
+                            <p>Total Income</p>
+                            <h1 id="amtIncome"><span class="currency">$</span> 0.00</h1>
+                        </div>
 
-                        
+                        <div class="card" id="expense">
+                            <!-- <i class="ri-wallet-fill"></i> -->
+                            <i><span class="material-symbols-outlined">trending_down</span></i>
+                            <p>Total Expense</p>
+                            <h1 id="amtExpense"><span class="currency">$</span> 0.00</h1>
+                        </div>
+
+                        <div class="card" id="transaction">
+                            <!-- <i class="ri-exchange-funds-line"></i> -->
+                            <i><span class="material-symbols-outlined">savings</span></i>
+                            <p>Total Transactions</p>
+                            <h1 id="cntTransaction">0</h1>
+                        </div>
                     </div>
-
-                    <table id="transactionsList">
-                        <thead>
-                            <th>DATE</th>
-                            <th>DESCRIPTION</th>
-                            <th>CATEGORY</th>
-                            <th>AMOUNT</th>
-                            <th>ACTIONS</th>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>2026-06-29</td>
-                                <td>asdasdas</td>
-                                <td>Shopping</td>
-                                <td>-$213213.00</td>
-                                <td>
-                                    <span class="edit"><i class="ri-pencil-fill"></i></span>
-                                    <span class="delete"><i class="ri-delete-bin-7-fill"></i></span>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>2026-06-29</td>
-                                <td>asdasdas</td>
-                                <td>Shopping</td>
-                                <td>+$213213.00</td>
-                                <td>
-                                    <span class="edit"><i class="ri-pencil-fill"></i></span>
-                                    <span class="delete"><i class="ri-delete-bin-7-fill"></i></span>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>2026-06-29</td>
-                                <td>asdasdas</td>
-                                <td>Shopping</td>
-                                <td>+$213213.00</td>
-                                <td>
-                                    <span class="edit"><i class="ri-pencil-fill"></i></span>
-                                    <span class="delete"><i class="ri-delete-bin-7-fill"></i></span>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-
                 </section>
-            </div>
-            <!-- #endregion TRANSACTIONS SECTION -->
+                <!-- #endregion MAIN CARD SECTION -->
 
+                <!-- #region GRAPH & PREFERENCE SECTION -->
+                <section id="graphSection">
+                    <div class="graph-wrapper">
+                        <h1 class="title">Cash Flow Analysis</h1>
+                        <div id="graph">
+                            <canvas id="myChart"></canvas>
+                        </div>
+                    </div>
+                    <div id="preference">
+                        <h1>Preferences</h1>
+                        <h3>
+                            <span>Dark Mode</span>
+                            <label class="switch">
+                                <input type="checkbox" id="themeToggler" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </h3>
+                        <button id="reset"><i class="ri-delete-bin-7-fill"></i><span>Reset All Data</span></button>
+                    </div>
+                </section>
+                <!-- #endregion GRAPH & PREFERENCE SECTION -->
+
+                <!-- #region TRANSACTIONS SECTION -->
+                <div class="transaction-wrapper">
+                    <section id="transactionSection">
+                        <div class="header">
+                            <h1 class="title">All Transactions</h1>
+                            <div class="filters">
+                                <div class="search">
+                                    <i class="ri-search-line"></i>
+                                    <input type="text" name="search" id="seacrhInp"
+                                        placeholder="Search Transactions...">
+                                </div>
+                                <select name="filter" id="filterInp">
+                                    <option value="">All</option>
+                                    <option value="income">Incomes</option>
+                                    <option value="expense">Expenses</option>
+                                </select>
+                            </div>
+                        </div>
+                        <table id="transactionsList">
+                            <thead>
+                                <tr>
+                                    <th>DATE</th>
+                                    <th>DESCRIPTION</th>
+                                    <th>CATEGORY</th>
+                                    <th>AMOUNT</th>
+                                    <th>ACTIONS</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>2026-06-29</td>
+                                    <td>asdasdas</td>
+                                    <td><span class="category-pill shopping">Shopping</span></td>
+                                    <td class="expense-amt">-$213213.00</td>
+                                    <td>
+                                        <span class="edit"><i class="ri-pencil-fill"></i></span>
+                                        <span class="delete"><i class="ri-delete-bin-7-fill"></i></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2026-06-29</td>
+                                    <td>asdasdas</td>
+                                    <td><span class="category-pill shopping">Shopping</span></td>
+                                    <td class="income-amt">+$213213.00</td>
+                                    <td>
+                                        <span class="edit"><i class="ri-pencil-fill"></i></span>
+                                        <span class="delete"><i class="ri-delete-bin-7-fill"></i></span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </section>
+                </div>
+                <!-- #endregion TRANSACTIONS SECTION -->
+            </div>
+
+            <div id="setting">
+                <!-- #region SETTINGS SECTION -->
+                <section id="settingsSection">
+                    <h1>Settings</h1>
+                    <p>Manage your account profile and app formatting.</p>
+                    <div id="settingPanel">
+                        <h1 class="title">Profile Details</h1>
+                        <form action="">
+                            <div class="inputs-div">
+                                <div id="usernameSettingDiv">
+                                    <label for="username" id="usernameSettingLbl">Username</label>
+                                    <input type="text" name="username" id="usernameSettingInp">
+                                </div>
+                                <div id="currencySettingDiv">
+                                    <label for="currency" id="currencySettingLbl">Currency</label>
+                                    <select name="currency" id="currencySettingInp">
+                                        <option value="inr">USD ($)</option>
+                                        <option value="inr">EUR (€)</option>
+                                        <option value="inr">GBP (£)</option>
+                                        <option value="inr">INR (₹)</option>
+                                        <option value="inr">JPY (¥)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button type="submit" id="saveChangesBtn">Save Changes</button>
+                        </form>
+                    </div>
+                </section>
+                <!-- #endregion SETTINGS SECTION -->
+            </div>
 
         </div>
         <!-- #endregion MAIN CONTENT -->
 
+        <!-- #region ADD & EDIT TRANSACTION-PAGE -->
+        <div class="add-transaction-wrapper">
+            <section id="addTransaction">
+                <div class="top">
+                    <div class="header" id="addTransactionHead">Add Transaction</div>
+                    <i class="ri-close-large-fill"></i>
+                </div>
+                <form action="" id="addTransactionForm">
+                    <div class="inp">
+                        <label for="type" id="typeLbl">Type</label>
+                        <select name="type" id="typeInp">
+                            <option value="expense">Expense</option>
+                            <option value="income">Income</option>
+                        </select>
+                    </div>
 
+                    <div class="inp">
+                        <label for="description" id="descriptionLbl">Description</label>
+                        <input type="text" name="description" id="descriptionInp"
+                            placeholder="e.g. Amazon, Salary, Coffee" required autocomplete="off">
+                    </div>
+
+                    <div class="inp2">
+                        <div class="inp21">
+                            <label for="amount" id="amountLbl">Amount</label>
+                            <input type="number" name="amount" id="amountInp" placeholder="amount" required>
+                        </div>
+                        <div class="inp21">
+                            <label for="date" id="dateLbl">Date</label>
+                            <input type="date" name="date" id="dateInp" required>
+                        </div>
+                    </div>
+
+                    <div class="inp">
+                        <label for="category" id="categoryLbl">Category</label>
+                        <select name="category" id="categoryInp" required>
+                            <option value="" disabled selected>Select a category</option>
+                            <option value="Food &amp; Dining">Food &amp; Dining</option>
+                            <option value="Shopping">Shopping</option>
+                            <option value="Recharge &amp; Bills">Recharge &amp; Bills</option>
+                            <option value="Petrol &amp; Auto">Petrol &amp; Auto</option>
+                            <option value="Utilities">Utilities</option>
+                            <option value="Salary">Salary</option>
+                            <option value="Entertainment">Entertainment</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" id="saveBtn">Save Transaction</button>
+
+                </form>
+            </section>
+        </div>
+        <!-- #endregion ADD & EDIT TRANSACTION-PAGE -->
 
     </div>
     <!-- #endregion HOME-PAGE -->
 
-
-    <!-- SETTING-PAGE -->
-    <!-- SETTING-PAGE -->
 
     <!-- #region LOGIN & SIGNUP-PAGE -->
     <main>

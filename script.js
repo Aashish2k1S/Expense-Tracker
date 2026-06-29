@@ -16,17 +16,30 @@ const
     anchor = document.querySelector('#anchor');
 
 const
-    hero = document.querySelector('.hero'),
+    hero = document.querySelector('.hero');
+
+const
+    dashboard = document.querySelector('#dashboard'),
     theme = document.querySelector('#theme'),
     addTran = document.querySelector('#addTran'),
     logout = document.querySelector('#logout');
 
 const
     graph = document.querySelector('#myChart');
+
+const 
+    setting = document.querySelector('#setting');
+
 // #endregion selectors 
 
 
 // #region to be removed
+setting.style.display = 'none';
+dashboard.style.display = 'block';
+
+// setting.style.display = 'block';
+// dashboard.style.display = 'none';
+
 hero.style.display = 'flex';
 main.style.display = "none";
 body.classList.toggle('dark');
@@ -61,49 +74,75 @@ function themeToggle() {
     }
 }
 
+
 function graphrender() {
     const ctx = graph.getContext('2d');
 
-    // console.log(Chart);
-
+    // If an existing chart instance is on this canvas, destroy it first to prevent ghosting
+    const existingChart = Chart.getChart(ctx);
+    if (existingChart) {
+        existingChart.destroy();
+    }
 
     new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: [''],
+            labels: [''], 
             datasets: [
                 {
                     label: 'Income',
-                    data: [999],
-                    backgroundColor: 'rgba(69, 168, 69, 0.8)', 
-                    barThickness: 50, 
-                    barPercentage: 0.6
+                    data: [213213], // Updated to match your table data magnitude
+                    backgroundColor: 'rgba(69, 168, 69, 0.8)',
+                    borderColor: 'rgba(69, 168, 69, 1)',
+                    borderWidth: 1
                 },
                 {
-                    label: 'Expense',
-                    data: [888],
-                    backgroundColor: 'rgba(153, 27, 27, 0.8)', 
-                    barThickness: 50, 
-                    barPercentage: 0.6
+                    label: 'Expenses',
+                    data: [12313], // Updated to match your table data magnitude
+                    backgroundColor: 'rgba(153, 27, 27, 0.8)',
+                    borderColor: 'rgba(153, 27, 27, 1)',
+                    borderWidth: 1
                 }
             ]             
         },
         options: {
             responsive: true,
+            maintainAspectRatio: false,
             plugins: {
                 legend: {
                     display: true, 
-                    position: 'top'
+                    position: 'top',
+                    labels: {
+                        color: '#94a3b8' // Matches your UI text theme color
+                    }
                 }
             },
             scales: {
                 x: {
+                    // Controls how wide the group cluster is inside the empty label slot
+                    categoryPercentage: 0.4, 
+                    // Controls how wide individual bars are relative to each other
+                    barPercentage: 0.8, 
+                    grid: {
+                        display: false // Cleans up the background X grid line
+                    },
                     title: {
                         display: true,
-                        text: 'Income Vs Expense'
-                    }
+                        text: 'Income vs Expenses',
+                        color: '#94a3b8',
+                        font: {
+                            weight: 'bold'
+                        }
+                    },
+                    ticks: { color: '#94a3b8' }
                 },
-                y: { beginAtZero: true }
+                y: { 
+                    beginAtZero: true,
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.05)' // Subtle dark theme grid lines
+                    },
+                    ticks: { color: '#94a3b8' }
+                }
             }
         }
     });
