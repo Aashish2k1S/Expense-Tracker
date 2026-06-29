@@ -86,7 +86,7 @@
                 <div id="graph">
                     <canvas id="myChart"></canvas>
                 </div>
-                <div id="preference">                 
+                <div id="preference">
                     <h1>Preferences</h1>
                     <h3><span>Dark Mode</span><span id="themeToggler"></span></h3>
                     <button id="reset"><i class="ri-delete-bin-7-fill"></i><span>Reset All Data</span></button>
@@ -94,8 +94,89 @@
             </section>
             <!-- #endregion GRAPH & PREFERENCE SECTION -->
 
+            <!-- #region TRANSACTIONS SECTION -->
+            <div class="transaction-wrapper">
+                <section id="transactionSection">
+                    <div class="header">
+                        <h1 class="title">All Transactions</h1>
+                        <div class="filters">
+                            <div class="search">
+                                <i class="ri-search-line"></i>
+                                <input type="text" name="search" id="seacrhInp" placeholder="Search Transactions...">
+                            </div>
+                            <select name="filter" id="filterInp">
+                                <option value="">All</option>
+                                <option value="income">Incomes</option>
+                                <option value="expense">Expenses</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="transactionsList">
+                        <div class="list-head">
+                            <p>DATE</p>
+                            <p>DESCRIPTION</p>
+                            <p>CATEGORY</p>
+                            <p>AMOUNT</p>
+                            <p>ACTIONS</p>
+                        </div>
+
+
+                        
+                    </div>
+
+                    <table id="transactionsList">
+                        <thead>
+                            <th>DATE</th>
+                            <th>DESCRIPTION</th>
+                            <th>CATEGORY</th>
+                            <th>AMOUNT</th>
+                            <th>ACTIONS</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>2026-06-29</td>
+                                <td>asdasdas</td>
+                                <td>Shopping</td>
+                                <td>-$213213.00</td>
+                                <td>
+                                    <span class="edit"><i class="ri-pencil-fill"></i></span>
+                                    <span class="delete"><i class="ri-delete-bin-7-fill"></i></span>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>2026-06-29</td>
+                                <td>asdasdas</td>
+                                <td>Shopping</td>
+                                <td>+$213213.00</td>
+                                <td>
+                                    <span class="edit"><i class="ri-pencil-fill"></i></span>
+                                    <span class="delete"><i class="ri-delete-bin-7-fill"></i></span>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>2026-06-29</td>
+                                <td>asdasdas</td>
+                                <td>Shopping</td>
+                                <td>+$213213.00</td>
+                                <td>
+                                    <span class="edit"><i class="ri-pencil-fill"></i></span>
+                                    <span class="delete"><i class="ri-delete-bin-7-fill"></i></span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+                </section>
+            </div>
+            <!-- #endregion TRANSACTIONS SECTION -->
+
+
         </div>
         <!-- #endregion MAIN CONTENT -->
+
 
 
     </div>
@@ -105,8 +186,8 @@
     <!-- SETTING-PAGE -->
     <!-- SETTING-PAGE -->
 
+    <!-- #region LOGIN & SIGNUP-PAGE -->
     <main>
-        <!-- #region LOGIN & SIGNUP-PAGE -->
         <div class="loginSignup">
             <h1 class="loginSignupTitle">Welcome Back</h1>
             <p class="loginSignupHead">Login to FinTrack Pro</p>
@@ -126,8 +207,8 @@
 
             <p><span id="spanBottom">Don't have an account?</span> <span id="anchor">Register here</span></p>
         </div>
-        <!-- #endregion LOGIN & SIGNUP-PAGE -->
     </main>
+    <!-- #endregion LOGIN & SIGNUP-PAGE -->
 
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

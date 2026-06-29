@@ -64,46 +64,58 @@ function themeToggle() {
 function graphrender() {
     const ctx = graph.getContext('2d');
 
-    console.log(Chart);
-    
+    // console.log(Chart);
+
+
     new Chart(ctx, {
         type: 'bar',
         data: {
-            // labels: 'Income VS Expenses',
-            x: 'Income VS Expenses',
-            datasets: [{
-                label: '# of Votes',
-                data: [19, 12, 3],
-                backgroundColor: [
-                    'rgba(54, 162, 235, 0.6)',
-                    'rgba(255, 99, 132, 0.6)',
-                    'rgba(255, 206, 86, 0.6)'
-                ],
-                borderColor: [
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(255, 206, 86, 1)'
-                ],
-                borderWidth: 1
-            }]
+            labels: [''],
+            datasets: [
+                {
+                    label: 'Income',
+                    data: [999],
+                    backgroundColor: 'rgba(69, 168, 69, 0.8)', 
+                    barThickness: 50, 
+                    barPercentage: 0.6
+                },
+                {
+                    label: 'Expense',
+                    data: [888],
+                    backgroundColor: 'rgba(153, 27, 27, 0.8)', 
+                    barThickness: 50, 
+                    barPercentage: 0.6
+                }
+            ]             
         },
         options: {
-            scales: {
-                y: {
-                    beginAtZero: true
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: true, 
+                    position: 'top'
                 }
+            },
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Income Vs Expense'
+                    }
+                },
+                y: { beginAtZero: true }
             }
         }
     });
 }
 
 function render() {
-    graphrender();    
+    graphrender();
 }
 
 
 function pageLoad() {
-    render();    
+    render();
 }
 
 pageLoad();

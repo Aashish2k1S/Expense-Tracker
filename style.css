@@ -66,10 +66,6 @@ body {
     transition: background-color var(--transition-speed), color var(--transition-speed);
 }
 
-body {
-    position: relative;
-}
-
 
 .hero {
     width: 100%;
@@ -214,7 +210,16 @@ body {
 
 #main {
     flex: 1;
-    min-height: 100vh;
+    height: 100vh;
+    overflow-y: scroll;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+#main::-webkit-scrollbar {
+    display: none;
 }
 
 
@@ -288,13 +293,12 @@ body {
 /* #region MAIN CARD SECTION */
 #mainSection {
     width: 100%;
-    min-height: 100%;
     display: flex;
     flex-flow: column nowrap;
     align-items: flex-start;
     justify-content: flex-start;
     gap: 2rem;
-    padding: 1rem 2rem;
+    padding: 0 2rem 2rem 2rem;
 }
 
 #mainSection>h1 {
@@ -333,6 +337,7 @@ body {
     box-shadow: var(--shadow-s) var(--shadow-color);
     transition: all ease-in-out var(--transition-speed);
 }
+
 #mainSection #cards .card:hover {
     box-shadow: none;
 }
@@ -361,6 +366,7 @@ body {
     color: rgb(60, 130, 246);
     background-color: rgba(60, 130, 246, 0.2);
 }
+
 #cards>#balance>#amtBalance {
     color: rgb(60, 130, 246);
 }
@@ -369,6 +375,7 @@ body {
     color: rgb(69, 168, 69);
     background-color: rgba(69, 168, 69, 0.2);
 }
+
 #cards>#income>#amtIncome {
     color: rgb(69, 168, 69);
 }
@@ -377,6 +384,7 @@ body {
     color: rgb(153, 27, 27);
     background-color: rgba(153, 27, 27, 0.2);
 }
+
 #cards>#expense>#amtExpense {
     color: rgb(153, 27, 27);
 }
@@ -385,29 +393,33 @@ body {
     color: rgb(39, 87, 179);
     background-color: rgba(39, 88, 179, 0.2);
 }
+
 #cards>#transaction>#cntTransaction {
     color: rgb(39, 87, 179);
 }
+
 /* #endregion MAIN CARD SECTION */
 
 
 /* #region GRAPH & PREFERENCES SECTION */
 
 #graphSection {
+
     width: 100%;
-    height: auto;
+    height: 15rem;
     display: flex;
-    flex-flow: row wrap;
+    flex-flow: row nowrap;
+    /* flex-flow: column nowrap; */
     align-items: flex-start;
     justify-content: flex-start;
-    gap: 1rem;
-    padding: 1rem 2rem;
+    gap: 2rem;
+    padding: 0 2rem 2rem 2rem;
 }
 
 #graphSection #graph {
     flex: 1;
-    width: 100%;
     height: 100%;
+    padding: 0 0.5rem;
     border-radius: var(--radius);
     font-size: var(--font-size-m);
     font-weight: var(--font-w-m);
@@ -421,7 +433,10 @@ body {
 
 #graphSection #preference {
     width: auto;
+    max-width: 500px;
+    height: 100%;
     display: flex;
+    /* display: none; */
     flex-flow: column nowrap;
     align-items: flex-start;
     justify-content: flex-start;
@@ -433,10 +448,12 @@ body {
     background-color: var(--primary-color);
     box-shadow: var(--shadow-s) var(--shadow-color);
 }
+
 #graphSection #preference h1 {
     font-size: var(--font-size-xl);
     font-weight: var(--font-w-xl);
 }
+
 #graphSection #preference h3 {
     width: 100%;
     padding-bottom: 1rem;
@@ -447,17 +464,21 @@ body {
     font-weight: var(--font-w-xl);
     border-bottom: 2px solid var(--shadow-color);
 }
+
 #graphSection #preference h3 #themeToggler {
     background-color: red;
     padding: 0 2rem;
 }
+
 #reset {
     width: 100%;
     padding: 0.5rem 1rem;
     border: none;
     border-radius: var(--radius);
-    background-color: rgba(153, 27, 27, 0.2);;
-    color: rgb(153, 27, 27);;
+    background-color: rgba(153, 27, 27, 0.2);
+    ;
+    color: rgb(153, 27, 27);
+    ;
     font-size: var(--font-size-m);
     font-weight: var(--font-w-l);
     display: flex;
@@ -470,6 +491,137 @@ body {
 }
 
 /* #endregion GRAPH & PREFERENCES SECTION */
+
+
+
+/* #region TRANSACTION SECTION */
+.transaction-wrapper {
+    width: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 1rem;
+    padding: 0 2rem 2rem 2rem;
+}
+
+#transactionSection {
+    width: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    border-radius: var(--radius);
+    font-size: var(--font-size-m);
+    font-weight: var(--font-w-m);
+    background-color: var(--primary-color);
+    box-shadow: var(--shadow-s) var(--shadow-color);
+}
+/* #endregion TRANSACTION SECTION */
+
+/* #region HEADER OF SEARCH & FILTERS */
+
+#transactionSection .header {
+    width: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 0.5rem;
+}
+
+#transactionSection .title {
+    width: 100%;
+    font-size: var(--font-size-xxl);
+    font-weight: var(--font-size-xl);
+}
+
+#transactionSection .filters {
+    width: 100%;
+    display: flex;
+    gap: 1rem;
+    flex-flow: row nowrap;
+    /* background-color: rebeccapurple; */
+}
+
+#transactionSection .filters .search {
+    flex: 1;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background-color: var(--primary-color);
+    border-radius: var(--radius);
+    cursor: pointer;
+    box-shadow: var(--shadow-s) var(--shadow-color);
+    transition: all ease-in-out var(--transition-speed);
+}
+
+#transactionSection .filters .search:hover {
+    box-shadow: none;
+}
+
+
+#transactionSection .filters .search i {
+    color: var(--secondary-color);
+    font-weight: var(--font-w-l);
+}
+
+#transactionSection .filters .search input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    font-size: 0.8rem;
+    font-weight: var(--font-w-m);
+    color: var(--secondary-color);
+}
+
+#transactionSection .filters #filterInp,
+#transactionSection .filters #filterInp option {
+    color: var(--secondary-color);
+    background-color: var(--primary-color);
+    border: none;
+    outline: none;
+    color: var(--secondary-color);
+    background-color: var(--primary-color);
+    padding: 0.5rem 1rem 0.5rem 0.5rem;
+    border-radius: var(--radius);
+    font-size: var(--font-size-m);
+    font-weight: var(--font-w-m);
+    cursor: pointer;
+    box-shadow: var(--shadow-s) var(--shadow-color);
+    transition: all ease-in-out var(--transition-speed);
+}
+
+#transactionSection .filters #filterInp:hover {
+    box-shadow: none;
+}
+
+/* #endregion HEADER OF SEARCH & FILTERS */
+
+/* #region TRANSACTIONS LIST & TABLES */
+#transactionsList {
+    width: 100%;
+}
+
+#transactionsList .list-head {
+    width: 100%;
+    background-color: red;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    color: var(--fade-txt-color);
+    border-bottom: 2px solid var(--shadow-color);
+}
+
+
+/* #endregion TRANSACTIONS LIST & TABLES */
+
 
 
 /* #region FORMS */
@@ -582,11 +734,27 @@ button:hover {
 /* Tablets */
 @media (min-width: 768px) {
 
-
     #mainSection #cards .card {
         width: calc((100% - 2rem)/2);
     }
 
+
+    #graphSection {
+        width: 100%;
+        height: 15rem;
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: flex-start;
+    }
+
+    #graphSection #graph {
+        flex: 1;
+        width: 50%;
+    }
+
+    #graphSection #preference {
+        width: auto;
+    }
 }
 
 /* Laptops */
@@ -623,7 +791,7 @@ button:hover {
 }
 
 /* Desktops */
-@media (min-width: 1200px) {    
+@media (min-width: 1200px) {
     #mainSection #cards .card {
         width: calc((100% - 3rem)/4);
     }
