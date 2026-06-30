@@ -13,7 +13,7 @@
     --add-btn-color: rgb(60, 130, 246);
     --options-color: rgba(60, 131, 246, 0.2);
 
-    --font: 'Segoe UI', sans-serif;
+    --font: "Segoe UI", sans-serif;
     --font-size-s: 0.8rem;
     --font-size-m: 1rem;
     --font-size-l: 1.2rem;
@@ -64,7 +64,9 @@ body {
     font-family: var(--font);
     background-color: var(--primary-color);
     color: var(--secondary-color);
-    transition: background-color var(--transition-speed), color var(--transition-speed);
+    transition:
+        background-color var(--transition-speed),
+        color var(--transition-speed);
 }
 
 /* adding this class ato hero */
@@ -136,7 +138,6 @@ body {
     margin-top: -0.2rem;
 }
 
-
 .hero aside .top .options {
     /* display: none; */
     width: 100%;
@@ -183,7 +184,6 @@ body {
     color: var(--add-btn-color);
 }
 
-
 .hero aside .bottom {
     width: 100%;
 }
@@ -211,7 +211,6 @@ body {
 }
 
 /* #endregion SIDE BAR */
-
 
 #main {
     flex: 1;
@@ -247,8 +246,7 @@ body {
     gap: 1rem;
 }
 
-
-.hero #main nav .right .username {
+.hero #main nav .right #userName {
     padding: 0.5rem 1rem;
     font-size: var(--font-size-m);
     font-weight: var(--font-w-l);
@@ -293,7 +291,6 @@ body {
 
 /* #endregion NAV BAR  */
 
-
 #dashboard {
     display: block;
     /* display: none; */
@@ -313,20 +310,19 @@ body {
     padding: 0 2rem 2rem 2rem;
 }
 
-#mainSection>h1 {
+#mainSection > h1 {
     width: 100%;
     font-size: var(--font-size-xxl);
     font-weight: var(--font-w-xl);
 }
 
-#mainSection>p {
+#mainSection > p {
     width: 100%;
     font-size: var(--font-size-m);
     font-weight: var(--font-w-m);
     color: var(--fade-txt-color);
     margin-top: -1.8rem;
 }
-
 
 #mainSection #cards {
     width: 100%;
@@ -364,9 +360,9 @@ body {
 
 #mainSection #cards .card i span {
     padding: 0.5rem;
-    font-size: var(--font-size-xl);
-    font-weight: var(--font-w-l);
-
+    font-size: var(--font-size-xxl);
+    /* font-weight: var(--font-w-l); */
+    font-weight: var(--font-w-xl);
 }
 
 #mainSection #cards .card p {
@@ -381,46 +377,43 @@ body {
     margin-top: -0.8rem;
 }
 
-
-#cards>#balance>i {
+#cards > #balance > i {
     color: rgb(60, 130, 246);
     background-color: rgba(60, 130, 246, 0.2);
 }
 
-#cards>#balance>#amtBalance {
+#cards > #balance > #amtBalance {
     color: rgb(60, 130, 246);
 }
 
-#cards>#income>i {
+#cards > #income > i {
     color: rgb(69, 168, 69);
     background-color: rgba(69, 168, 69, 0.2);
 }
 
-#cards>#income>#amtIncome {
+#cards > #income > #amtIncome {
     color: rgb(69, 168, 69);
 }
 
-#cards>#expense>i {
+#cards > #expense > i {
     color: rgb(153, 27, 27);
     background-color: rgba(153, 27, 27, 0.2);
 }
 
-#cards>#expense>#amtExpense {
+#cards > #expense > #amtExpense {
     color: rgb(153, 27, 27);
 }
 
-#cards>#transaction>i {
+#cards > #transaction > i {
     color: rgb(39, 87, 179);
     background-color: rgba(39, 88, 179, 0.2);
 }
 
-#cards>#transaction>#cntTransaction {
+#cards > #transaction > #cntTransaction {
     color: rgb(39, 87, 179);
 }
 
 /* #endregion MAIN CARD SECTION */
-
-
 
 /* #region GRAPH & PREFERENCES SECTION */
 
@@ -436,7 +429,7 @@ body {
 
 #graphSection .graph-wrapper {
     width: 100%;
-    padding: 0 1rem 1rem 1rem;
+    padding: 1rem;
     display: flex;
     flex-flow: column nowrap;
     align-items: flex-start;
@@ -453,8 +446,8 @@ body {
 }
 
 #graphSection .graph-wrapper .title {
-    font-size: var(--font-size-xxl);
-    font-weight: var(--font-size-xxl);
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-w-xl);
 }
 
 #graphSection .graph-wrapper #graph {
@@ -468,7 +461,6 @@ body {
     transition: all ease-in-out var(--transition-speed);
     cursor: pointer;
 }
-
 
 #graphSection #preference {
     width: 100%;
@@ -502,7 +494,6 @@ body {
     font-weight: var(--font-w-xl);
     border-bottom: 2px solid var(--shadow-color);
 }
-
 
 .switch {
     position: relative;
@@ -541,14 +532,13 @@ body {
     border-radius: 50%;
 }
 
-.switch input:checked+.slider {
+.switch input:checked + .slider {
     background-color: var(--add-btn-color);
 }
 
-.switch input:checked+.slider::before {
+.switch input:checked + .slider::before {
     transform: translateX(1.5rem);
 }
-
 
 #reset {
     width: 100%;
@@ -569,8 +559,6 @@ body {
 }
 
 /* #endregion GRAPH & PREFERENCES SECTION */
-
-
 
 /* #region TRANSACTION SECTION */
 .transaction-wrapper {
@@ -618,8 +606,8 @@ body {
 
 #transactionSection .title {
     width: 100%;
-    font-size: var(--font-size-xxl);
-    font-weight: var(--font-size-xl);
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-w-xl);
 }
 
 #transactionSection .filters {
@@ -647,7 +635,6 @@ body {
 #transactionSection .filters .search:hover {
     box-shadow: none;
 }
-
 
 #transactionSection .filters .search i {
     color: var(--secondary-color);
@@ -722,21 +709,17 @@ body {
     font-size: var(--font-size-s);
     font-weight: var(--font-w-l);
     text-transform: lowercase;
-}
-
-#transactionsList .category-pill.shopping {
-    /* Utilizing options-color (semi-transparent blue) as a placeholder for categories */
     background-color: var(--options-color);
     color: var(--add-btn-color);
 }
 
-#transactionsList td.expense-amt {
+#transactionsList td.expense {
     color: var(--logout-btn-color);
     /* Linked to red button variable */
     font-weight: var(--font-w-l);
 }
 
-#transactionsList td.income-amt {
+#transactionsList td.income {
     color: var(--register-btn-color);
     /* Linked to green button variable */
     font-weight: var(--font-w-l);
@@ -752,7 +735,9 @@ body {
 #transactionsList .delete i {
     font-size: var(--font-size-l);
     cursor: pointer;
-    transition: transform var(--transition-speed) ease, opacity var(--transition-speed) ease;
+    transition:
+        transform var(--transition-speed) ease,
+        opacity var(--transition-speed) ease;
 }
 
 #transactionsList .edit i {
@@ -770,8 +755,6 @@ body {
 }
 
 /* #endregion TRANSACTIONS LIST & TABLES */
-
-
 
 #setting {
     /* display: block; */
@@ -799,12 +782,12 @@ body {
 }
 
 /* #region SETTINGS SECTION  */
-#settingsSection>h1 {
+#settingsSection > h1 {
     font-size: var(--font-size-xxl);
     font-weight: var(--font-w-xl);
 }
 
-#settingsSection>p {
+#settingsSection > p {
     font-size: var(--font-size-m);
     font-weight: var(--font-w-m);
     color: var(--fade-txt-color);
@@ -861,14 +844,12 @@ body {
     width: 100%;
 }
 
-
 #usernameSettingLbl,
 #currencySettingLbl {
     font-size: var(--font-size-l);
     font-weight: var(--font-w-m);
     color: var(--fade-txt-color);
 }
-
 
 #usernameSettingInp,
 #currencySettingInp {
@@ -913,8 +894,6 @@ body {
 
 /* #endregion SETTING PANEL CARD */
 
-
-
 /* #region ADD & EDIT TRANSACTION-PAGE */
 .add-transaction-wrapper {
     position: absolute;
@@ -930,7 +909,7 @@ body {
 
 .add-transaction-wrapper #addTransaction {
     width: 100%;
-    max-width: 500px;
+    /* max-width: 500px; */
     background-color: var(--bg-color);
     padding: 1rem 2rem 2rem 2rem;
     border-radius: var(--radius);
@@ -968,7 +947,6 @@ body {
     transform: scale(1);
 }
 
-
 #addTransaction form {
     width: 100%;
     display: flex;
@@ -984,7 +962,7 @@ body {
     flex-flow: column nowrap;
     align-items: flex-start;
     justify-content: flex-start;
-    gap: 0.5rem
+    gap: 0.5rem;
 }
 
 #addTransaction form .inp2 {
@@ -993,7 +971,7 @@ body {
     flex-flow: row nowrap;
     align-items: flex-start;
     justify-content: flex-start;
-    gap: 1rem
+    gap: 1rem;
 }
 
 #addTransaction form .inp2 .inp21 {
@@ -1002,7 +980,7 @@ body {
     flex-flow: column nowrap;
     align-items: flex-start;
     justify-content: flex-start;
-    gap: 0.5rem
+    gap: 0.5rem;
 }
 
 #addTransaction form label {
@@ -1036,7 +1014,6 @@ body {
     box-shadow: none;
 }
 
-
 #addTransaction form select option {
     background-color: var(--primary-color);
     color: var(--secondary-color);
@@ -1048,8 +1025,6 @@ body {
 }
 
 /* #endregion ADD & EDIT TRANSACTION-PAGE */
-
-
 
 /* #region FORMS */
 main {
@@ -1125,7 +1100,6 @@ main {
     color: whitesmoke;
     font-size: var(--font-size-s);
     font-weight: var(--font-w-l);
-    ;
     box-shadow: var(--shadow-s) var(--shadow-color);
     transition: all ease-in-out var(--transition-speed);
 }
@@ -1150,13 +1124,11 @@ main {
 
 /* #endregion FORMS */
 
-
 button:active,
 button:hover {
     box-shadow: none !important;
     transform: scale(0.98);
 }
-
 
 /* #region Responsive Media Query */
 /* Tablets */
@@ -1180,11 +1152,15 @@ button:hover {
         width: 30%;
         height: 15rem;
     }
+
+    .add-transaction-wrapper #addTransaction {
+        width: 100%;
+        max-width: 500px;
+    }
 }
 
 /* Laptops */
 @media (min-width: 1024px) {
-
     .hero aside {
         width: 35%;
     }
@@ -1209,7 +1185,6 @@ button:hover {
         display: block;
     }
 
-    
     #mainSection #cards {
         grid-template-columns: repeat(4, 1fr);
     }
@@ -1220,6 +1195,7 @@ button:hover {
 }
 
 /* Desktops */
-@media (min-width: 1200px) { }
+@media (min-width: 1200px) {
+}
 
 /* #endregion responsive */
