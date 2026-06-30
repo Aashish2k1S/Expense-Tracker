@@ -1145,7 +1145,6 @@ button:hover {
     #graphSection .graph-wrapper {
         width: 70%;
         height: 15rem;
-        padding: 0 1rem;
     }
 
     #graphSection #preference {

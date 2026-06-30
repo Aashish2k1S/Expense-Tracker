@@ -14,7 +14,7 @@ const loginSignup = document.querySelector(".loginSignup"),
 
 const hero = document.querySelector(".hero");
 
-const 
+const
     dashboard = document.querySelector("#dashboard"),
     userId = document.querySelector("#userId"),
     userName = document.querySelector("#userName"),
@@ -22,15 +22,31 @@ const
     addTranBtn = document.querySelector("#addTranBtn"),
     logout = document.querySelector("#logout");
 
+const
+    amtBalance = document.querySelector('#amtBalance'),
+    amtIncome = document.querySelector('#amtIncome'),
+    amtExpense = document.querySelector('#amtExpense'), 
+    cntTransaction = document.querySelector('#cntTransaction');
+
+
 const graph = document.querySelector("#myChart"),
     themeSwitch = document.querySelector("#themeToggler"),
     reset = document.querySelector("#reset");
 
-const 
+const
     seacrhInp = document.querySelector("#seacrhInp"),
     transactionsData = document.querySelector("#transactionsData");
 
 const setting = document.querySelector("#setting");
+
+
+
+const
+    addTransaction = document.querySelector(".add-transaction-wrapper"),
+    addTransactionForm = document.querySelector("#addTransactionForm"),
+    addTransactionHead = document.querySelector("#addTransactionHead"),
+    closeAddTransaction = document.querySelector(".add-transaction-close");
+
 
 // #endregion selectors
 
@@ -73,18 +89,10 @@ function Transaction(id, amount, type, category, date, description) {
     this.description = description;
 }
 
-const currency = { usd: `$`, eur: `€`, gbp: `£`, inr: `₹`, jpy: `¥` },
+const
+    currency = { usd: `$`, eur: `€`, gbp: `£`, inr: `₹`, jpy: `¥` },
     type = [`income`, `expense`],
-    category = [
-        `Food & Dining`,
-        `Shopping`,
-        `Recharge`,
-        `Petrol & Auto`,
-        `Utilities`,
-        `Salary`,
-        `Entertainment`,
-        `Other`,
-    ];
+    category = [`Food & Dining`, `Shopping`, `Recharge`, `Petrol & Auto`, `Utilities`, `Salary`, `Entertainment`, `Other`];
 
 let userData = [];
 
@@ -169,6 +177,32 @@ function render(id) {
     userId.textContent = id;
     userName.textContent = userData[idx].username;
 
+    addTransaction.style.display = 'none';
+    addTransactionForm.reset();
+
+
+    let 
+        balance = 0, income = 0, 
+        expense = 0, transactionCount = 0, 
+        userCurrency = currency[userData[idx]];
+
+    let transactions = userData[idx].transactions;
+
+    console.log(transactions);
+    
+
+    if (transactions.length) {
+        balance = transactions.map((tran) => (tran.type === 'income' ? tran.amount : -tran.amount)).reduce((a, b) => a + b, 0);
+        income = transactions.map((tran) => (tran.type === 'income' ? tran.amount : 0)).reduce((a, b) => a + b, 0);
+        expense = transactions.map((tran) => (tran.type === 'income' ? 0 : tran.amount)).reduce((a, b) => a + b, 0);
+        transactionCount = transactions.length;
+    }
+
+    amtBalance.textContent = `${userCurrency} ${balance}`;
+    amtIncome.textContent = `${userCurrency} ${income}`;
+    amtExpense.textContent = `${userCurrency} ${expense}`;
+    cntTransaction.textContent = `${transactionCount}`;
+
     let transaction = userData[idx].transactions;
     graphrender(transaction);
     themeToggle(userData[idx].isDark);
@@ -226,92 +260,9 @@ function transactionRender(search) {
     let idx = userData.findIndex(
         (user) => user.id === Number(userId.textContent),
     );
-    let userCurrency = currency[userData[idx].currency],
-        transactions =
-            //RMV
-            //userData[idx].transactions || [];
-            [
-                new Transaction(
-                    1,
-                    45000,
-                    "income",
-                    "Salary",
-                    "2026-06-01",
-                    "Monthly salary credited",
-                ),
-                new Transaction(
-                    2,
-                    350,
-                    "expense",
-                    "Food & Dining",
-                    "2026-06-02",
-                    "Lunch at restaurant",
-                ),
-                new Transaction(
-                    3,
-                    1200,
-                    "expense",
-                    "Shopping",
-                    "2026-06-03",
-                    "Bought new shoes",
-                ),
-                new Transaction(
-                    4,
-                    299,
-                    "expense",
-                    "Recharge",
-                    "2026-06-04",
-                    "Mobile recharge",
-                ),
-                new Transaction(
-                    5,
-                    1800,
-                    "expense",
-                    "Utilities",
-                    "2026-06-05",
-                    "Electricity bill",
-                ),
-                new Transaction(
-                    6,
-                    1500,
-                    "expense",
-                    "Petrol & Auto",
-                    "2026-06-06",
-                    "Fuel refill",
-                ),
-                new Transaction(
-                    7,
-                    650,
-                    "expense",
-                    "Entertainment",
-                    "2026-06-07",
-                    "Movie tickets",
-                ),
-                new Transaction(
-                    8,
-                    2000,
-                    "income",
-                    "Other",
-                    "2026-06-08",
-                    "Freelance project payment",
-                ),
-                new Transaction(
-                    9,
-                    480,
-                    "expense",
-                    "Food & Dining",
-                    "2026-06-09",
-                    "Grocery shopping",
-                ),
-                new Transaction(
-                    10,
-                    750,
-                    "expense",
-                    "Other",
-                    "2026-06-10",
-                    "Gift for friend",
-                ),
-            ];
+    let
+        userCurrency = currency[userData[idx].currency],
+        transactions = userData[idx].transactions || [];
 
     if (search.trim()) {
         transactions = transactions.filter((transaction) =>
@@ -339,10 +290,10 @@ function transactionRender(search) {
                         ${transaction.type.toLowerCase() === "income" ? "+" : "-"}${userCurrency}${parseFloat(transaction.amount).toFixed(2)}
                     </td>
                     <td>
-                        <span class="edit" data-Id="${transaction.id}">
+                        <span class="edit" onclick="edit(${transaction.id})" data-Id="${transaction.id}">
                             <i class="ri-pencil-fill"></i>
                         </span>
-                        <span class="delete" data-Id="${transaction.id}">
+                        <span class="delete" onclick="del(${transaction.id})" data-Id="${transaction.id}">
                             <i class="ri-delete-bin-7-fill"></i>
                         </span>
                     </td>
@@ -367,6 +318,96 @@ function pageLoad() {
 
 pageLoad();
 
+
+function loadAddTransactionForm(tranID) {
+    addTransactionForm.reset();
+
+
+
+    if (tranID) {
+        let idx = userData.findIndex((user) => user.id === parseInt(userId.textContent));
+
+        transaction = userData[idx].transactions.filter((tran) => tran.id === tranID);
+
+        if (!transaction.length) {
+            addTransactionHead.textContent = "Add Transaction";
+            addTransactionForm.reset();
+            return;
+        }
+
+        addTransactionHead.textContent = "Edit Transaction";
+
+        addTransactionForm[0].value = transaction[0].id;
+        addTransactionForm[1].value = transaction[0].type;
+        addTransactionForm[2].value = transaction[0].description;
+        addTransactionForm[3].value = transaction[0].amount;
+        addTransactionForm[4].value = transaction[0].date;
+        addTransactionForm[5].value = transaction[0].category;
+
+    }
+    else {
+        addTransactionHead.textContent = "Add Transaction";
+        addTransactionForm[0].value = "0";
+    }
+
+    addTransaction.style.display = 'flex';
+}
+
+
+
+function edit(tranId) {
+    loadAddTransactionForm(tranId);
+}
+
+function del(tranId) {
+    let consent = confirm('Are you sure you want to delete this transaction?');
+    if (!consent) return;
+
+    if (!tranId) {
+        alert('Transaction is invalid!!!');
+        return;
+    }
+
+    let idx = userData.findIndex((user) => user.id === parseInt(userId.textContent));
+    let tranIdx = userData[idx].transactions.findIndex((tran) => tran.id === tranId);
+    userData[idx].transactions.splice(1, tranIdx);
+    localStorage.setItem("userData", JSON.stringify(userData));
+    render();
+}
+
+function submit(e) { //NTW on submit tranID is NaN 
+    e.preventDefault();
+
+    let idx = userData.findIndex((user) => user.id === parseInt(userId.textContent));
+
+
+
+    let
+        id = parseInt(e.target[0].value),
+        type = e.target[1].value.toLowerCase(),
+        description = e.target[2].value,
+        amount = parseFloat(e.target[3].value).toFixed(2),
+        date = e.target[4].value,
+        category = e.target[5].value.toLowerCase();
+
+    if (!id) {
+        let maxTranID = userData[idx].transactions.map((tran) => tran.id).sort((a, b) => b - a)[0];
+        id = maxTranID + 1;
+    }
+
+    if (!type || !description || !amount || !date || !category) {
+        alert('Please fill all the fields!!!');
+        return;
+    }
+
+    let transaction = new Transaction(id, amount, type, category, date, description);
+
+    userData[idx].transactions.unshift(transaction);
+    localStorage.setItem('userData', JSON.stringify(userData));
+
+    render(userData[idx].id);
+}
+
 function authToggle(flag) {
     loginSignupForm.reset();
     loginSignupTitle.textContent = flag ? "Create Account" : "Welcome Back";
@@ -384,23 +425,7 @@ function authToggle(flag) {
     anchor.textContent = flag ? "Login here" : "Register here";
 }
 
-loginSignupForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-    // console.log(e);
-    // if (e.target.matches('#loginBtn')) {
-
-    if (e.submitter.matches("#loginBtn")) login(e);
-    else if (e.submitter.matches("#signupBtn")) register(e);
-});
-
-anchor.addEventListener("click", () =>
-    authToggle(anchor.textContent.toLowerCase() === "register here"),
-);
-
-
-
-
-logout.addEventListener("click", () => {
+function logOut() {
     let idx = userData.findIndex(
         (user) => user.id === Number(userId.textContent),
     );
@@ -410,19 +435,9 @@ logout.addEventListener("click", () => {
 
     hero.style.display = "none";
     main.style.display = "flex";
-});
+}
 
-// theme.addEventListener('click', themeToggle);
-themeSwitch.addEventListener("change", (e) => {
-    let idx = userData.findIndex(
-        (user) => user.id === Number(userId.textContent),
-    );
-    userData[idx].isDark = e.target.checked;
-    localStorage.setItem("userData", JSON.stringify(userData));
-    themeToggle(e.target.checked);
-});
-
-reset.addEventListener("click", () => {
+function resetAllData() {
     let consent = confirm(
         "Are sure you want to delete entire transaction history?",
     );
@@ -433,8 +448,38 @@ reset.addEventListener("click", () => {
     );
     userData[idx].transactions = [];
     localStorage.setItem("userData", JSON.stringify(userData));
+    render(userData[idx].id);
+}
+
+loginSignupForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    // console.log(e);
+    // if (e.target.matches('#loginBtn')) {
+
+    if (e.submitter.matches("#loginBtn")) login(e);
+    else if (e.submitter.matches("#signupBtn")) register(e);
 });
 
-seacrhInp.addEventListener("keyup", (e) => transactionRender(e.target.value)); 
+anchor.addEventListener("click", () => authToggle(anchor.textContent.toLowerCase() === "register here"));
+
+
+addTranBtn.addEventListener("click", () => loadAddTransactionForm(0));
+addTransactionForm.addEventListener("submit", (e) => submit(e));
+closeAddTransaction.addEventListener("click", () => render(parseInt(userId.textContent)));
+
+
+logout.addEventListener("click", () => logOut());
+
+// theme.addEventListener('click', themeToggle);
+themeSwitch.addEventListener("change", (e) => {
+    let idx = userData.findIndex((user) => user.id === Number(userId.textContent));
+    userData[idx].isDark = e.target.checked;
+    localStorage.setItem("userData", JSON.stringify(userData));
+    themeToggle(e.target.checked);
+});
+
+reset.addEventListener("click", () => resetAllData());
+
+seacrhInp.addEventListener("keyup", (e) => transactionRender(e.target.value));
 
 

@@ -66,21 +66,21 @@
                             <!-- <i class="ri-bank-fill"></i> -->
                             <i><span class="material-symbols-outlined">account_balance</span></i>
                             <p>Current Balance</p>
-                            <h1 id="amtBalance"><span class="currency">$</span> 0.00</h1>
+                            <h1 id="amtBalance">$ 0.00</h1>
                         </div>
 
                         <div class="card" id="income">
                             <!-- <i class="ri-refund-2-line"></i> -->
                             <i><span class="material-symbols-outlined">trending_up</span></i>
                             <p>Total Income</p>
-                            <h1 id="amtIncome"><span class="currency">$</span> 0.00</h1>
+                            <h1 id="amtIncome">$ 0.00</h1>
                         </div>
 
                         <div class="card" id="expense">
                             <!-- <i class="ri-wallet-fill"></i> -->
                             <i><span class="material-symbols-outlined">trending_down</span></i>
                             <p>Total Expense</p>
-                            <h1 id="amtExpense"><span class="currency">$</span> 0.00</h1>
+                            <h1 id="amtExpense">$ 0.00</h1>
                         </div>
 
                         <div class="card" id="transaction">
@@ -144,29 +144,7 @@
                                     <th>ACTIONS</th>
                                 </tr>
                             </thead>
-                            <tbody id="transactionsData">
-                                <tr>
-                                    <td style="display: none;">0</td>
-                                    <td>2026-06-29</td>
-                                    <td>asdasdas</td>
-                                    <td><span class="category-pill shopping">Shopping</span></td>
-                                    <td class="expense">-$213213.00</td>
-                                    <td>
-                                        <span class="edit"><i class="ri-pencil-fill"></i></span>
-                                        <span class="delete"><i class="ri-delete-bin-7-fill"></i></span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2026-06-29</td>
-                                    <td>asdasdas</td>
-                                    <td><span class="category-pill shopping">Shopping</span></td>
-                                    <td class="income">+$213213.00</td>
-                                    <td>
-                                        <span class="edit"><i class="ri-pencil-fill"></i></span>
-                                        <span class="delete"><i class="ri-delete-bin-7-fill"></i></span>
-                                    </td>
-                                </tr>
-                            </tbody>
+                            <tbody id="transactionsData"></tbody>
                         </table>
                     </section>
                 </div>
@@ -212,9 +190,10 @@
             <section id="addTransaction">
                 <div class="top">
                     <div class="header" id="addTransactionHead">Add Transaction</div>
-                    <i class="ri-close-large-fill"></i>
+                    <i class="ri-close-large-fill add-transaction-close"></i>
                 </div>
                 <form action="" id="addTransactionForm">
+                    <input type="hidden" name="idInp">
                     <div class="inp">
                         <label for="type" id="typeLbl">Type</label>
                         <select name="type" id="typeInp">
