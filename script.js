@@ -14,53 +14,39 @@ const loginSignup = document.querySelector(".loginSignup"),
 
 const hero = document.querySelector(".hero");
 
-const
-    dashboard = document.querySelector("#dashboard"),
+const optionsList = document.querySelector(".optionsList");
+
+const dashboard = document.querySelector("#dashboard"),
     userId = document.querySelector("#userId"),
     userName = document.querySelector("#userName"),
     // theme = document.querySelector('#theme'),
     addTranBtn = document.querySelector("#addTranBtn"),
     logout = document.querySelector("#logout");
 
-const
-    amtBalance = document.querySelector('#amtBalance'),
-    amtIncome = document.querySelector('#amtIncome'),
-    amtExpense = document.querySelector('#amtExpense'), 
-    cntTransaction = document.querySelector('#cntTransaction');
-
+const amtBalance = document.querySelector("#amtBalance"),
+    amtIncome = document.querySelector("#amtIncome"),
+    amtExpense = document.querySelector("#amtExpense"),
+    cntTransaction = document.querySelector("#cntTransaction");
 
 const graph = document.querySelector("#myChart"),
     themeSwitch = document.querySelector("#themeToggler"),
     reset = document.querySelector("#reset");
 
-const
-    seacrhInp = document.querySelector("#seacrhInp"),
+const seacrhInp = document.querySelector("#seacrhInp"),
+    filterInp = document.querySelector("#filterInp"),
     transactionsData = document.querySelector("#transactionsData");
 
-const setting = document.querySelector("#setting");
+const setting = document.querySelector("#setting"),
+    settingForm = document.querySelector("#settingForm");
 
-
-
-const
-    addTransaction = document.querySelector(".add-transaction-wrapper"),
+const addTransaction = document.querySelector(".add-transaction-wrapper"),
     addTransactionForm = document.querySelector("#addTransactionForm"),
     addTransactionHead = document.querySelector("#addTransactionHead"),
+    typeInp = document.querySelector("#typeInp"),
+    categoryInp = document.querySelector("#categoryInp"),
     closeAddTransaction = document.querySelector(".add-transaction-close");
 
-
 // #endregion selectors
-
-// #region RMV to be removed
-// setting.style.display = 'none';
-// dashboard.style.display = 'block';
-
-// // setting.style.display = 'block';
-// // dashboard.style.display = 'none';
-
-// hero.style.display = 'flex';
-// main.style.display = "none";
-// body.classList.toggle('dark');
-// #endregion to be removed
 
 theme.style.display = "none";
 
@@ -73,7 +59,7 @@ function User(
     transactions = [],
     isLoggedIn = false,
 ) {
-    this.id = id;
+    this.id = parseInt(id);
     this.username = username;
     this.password = password;
     this.isDark = Boolean(isDark);
@@ -81,23 +67,48 @@ function User(
     this.transactions = transactions;
 }
 function Transaction(id, amount, type, category, date, description) {
-    this.id = id;
-    this.amount = amount;
+    this.id = parseInt(id);
+    this.amount = parseFloat(amount).toFixed(2);
     this.type = type;
     this.category = category;
     this.date = date;
     this.description = description;
 }
 
-const
-    currency = { usd: `$`, eur: `€`, gbp: `£`, inr: `₹`, jpy: `¥` },
+const currency = { usd: `$`, eur: `€`, gbp: `£`, inr: `₹`, jpy: `¥` },
     type = [`income`, `expense`],
-    category = [`Food & Dining`, `Shopping`, `Recharge`, `Petrol & Auto`, `Utilities`, `Salary`, `Entertainment`, `Other`];
+    category = [
+        `Food & Dining`,
+        `Shopping`,
+        `Recharge`,
+        `Petrol & Auto`,
+        `Utilities`,
+        `Salary`,
+        `Entertainment`,
+        `Other`,
+    ];
 
 let userData = [];
 
 if (localStorage.getItem("userData"))
     userData = JSON.parse(localStorage.getItem("userData"));
+
+function authToggle(flag) {
+    loginSignupForm.reset();
+    loginSignupTitle.textContent = flag ? "Create Account" : "Welcome Back";
+    loginSignupHead.textContent = flag
+        ? "Join FinTrack Pro"
+        : "Login to FinTrack Pro";
+    loginSignupUsername.textContent = flag ? "Choose a Username" : "Username";
+
+    loginBtn.style.display = flag ? "none" : "block";
+    signupBtn.style.display = flag ? "block" : "none";
+
+    spanBottom.textContent = flag
+        ? "Already have an account?"
+        : "Don't have an account?";
+    anchor.textContent = flag ? "Login here" : "Register here";
+}
 
 function themeToggle(flag) {
     if (flag) {
@@ -162,41 +173,123 @@ function login(event) {
     userData[idx].isLoggedIn = true;
     localStorage.setItem("userData", JSON.stringify(userData));
 
-    render(userID);
+    render();
 
     // alert('logged in successfully');
     authToggle(false);
 }
 
-function render(id) {
-    let idx = userData.findIndex((user) => user.id === id);
+function loadAll() {
+    typeInp.innerHTML = type
+        .sort()
+        .map((e) => {
+            return `<option value="${e.toLowerCase()}"> 
+            ${
+                e.substring(0, 1).toUpperCase() +
+                e.substring(1, e.length).toLowerCase()
+            } 
+        </option>`;
+        })
+        .join("");
 
-    hero.style.display = "flex";
+    filterInp.innerHTML =
+        `<option value="">All</option>` +
+        type
+            .sort()
+            .map((e) => {
+                return `<option value="${e.toLowerCase()}"> 
+            ${
+                e.substring(0, 1).toUpperCase() +
+                e.substring(1, e.length).toLowerCase()
+            } 
+        </option>`;
+            })
+            .join("");
+
+    categoryInp.innerHTML =
+        `<option value="" disabled selected>Select a category</option>` +
+        category
+            .sort()
+            .map((e) => `<option value="${e}">${e}</option>`)
+            .join("");
+}
+
+function settingPage() {
+    let idx = userData.findIndex(
+        (user) => user.id === parseInt(userId.textContent),
+    );
+    // console.log('working');
+
+    dashboard.style.display = "none";
+    setting.style.display = "block";
+
+    settingForm.reset();
+
+    settingForm[0].value = userData[idx].username;
+    settingForm[1].value = userData[idx].currency;
+}
+
+function render() {
+    loadAll();
+
+    let idx = userData.findIndex((user) => user.isLoggedIn);
+    let id = userData[idx].id;
+
     main.style.display = "none";
+    hero.style.display = "flex";
+
+    dashboard.style.display = "block";
+    setting.style.display = "none";
 
     userId.textContent = id;
     userName.textContent = userData[idx].username;
 
-    addTransaction.style.display = 'none';
+    addTransaction.style.display = "none";
     addTransactionForm.reset();
 
+    let balance = 0,
+        income = 0,
+        expense = 0,
+        transactionCount = 0,
+        userCurrency = currency[userData[idx].currency];
 
-    let 
-        balance = 0, income = 0, 
-        expense = 0, transactionCount = 0, 
-        userCurrency = currency[userData[idx]];
+    // console.log(userCurrency);
 
     let transactions = userData[idx].transactions;
 
-    console.log(transactions);
-    
-
     if (transactions.length) {
-        balance = transactions.map((tran) => (tran.type === 'income' ? tran.amount : -tran.amount)).reduce((a, b) => a + b, 0);
-        income = transactions.map((tran) => (tran.type === 'income' ? tran.amount : 0)).reduce((a, b) => a + b, 0);
-        expense = transactions.map((tran) => (tran.type === 'income' ? 0 : tran.amount)).reduce((a, b) => a + b, 0);
+        balance = transactions
+            .map((tran) =>
+                parseFloat(
+                    tran.type === "income" ? tran.amount : -tran.amount,
+                ).toFixed(2),
+            )
+            .reduce((a, b) => a + parseFloat(b), 0.0);
+
+        income = transactions
+            .map((tran) =>
+                parseFloat(tran.type === "income" ? tran.amount : 0).toFixed(2),
+            )
+            .reduce((a, b) => a + parseFloat(b), 0.0);
+
+        expense = transactions
+            .map((tran) =>
+                parseFloat(tran.type === "income" ? 0 : tran.amount).toFixed(2),
+            )
+            .reduce((a, b) => a + parseFloat(b), 0.0);
+
         transactionCount = transactions.length;
     }
+
+    balance = balance.toFixed(2);
+    income = income.toFixed(2);
+    expense = expense.toFixed(2);
+
+    // console.log(balance);
+    // console.log(income);
+    // console.log(expense);
+    // console.log(transactionCount);
+    // console.log(userCurrency);
 
     amtBalance.textContent = `${userCurrency} ${balance}`;
     amtIncome.textContent = `${userCurrency} ${income}`;
@@ -218,10 +311,12 @@ function graphrender(transactions) {
     if (transactions.length) {
         income = transactions
             .filter((e) => e.type === "income")
-            .reduce((a, b) => a + b.amount, 0);
+            .map((e) => e.amount)
+            .reduce((a, b) => a + parseFloat(b), 0);
         expense = transactions
             .filter((e) => e.type === "expense")
-            .reduce((a, b) => a + b.amount, 0);
+            .map((e) => e.amount)
+            .reduce((a, b) => a + parseFloat(b), 0);
     }
 
     const ctx = graph.getContext("2d");
@@ -255,21 +350,27 @@ function graphrender(transactions) {
         },
     });
 }
-function transactionRender(search) {
+function transactionRender() {
+    let search = seacrhInp.value.toLowerCase(),
+        searchFilter = filterInp.value.trim().toLowerCase();
+
     transactionsData.innerHTML = "";
     let idx = userData.findIndex(
         (user) => user.id === Number(userId.textContent),
     );
-    let
-        userCurrency = currency[userData[idx].currency],
+    let userCurrency = currency[userData[idx].currency],
         transactions = userData[idx].transactions || [];
 
-    if (search.trim()) {
-        transactions = transactions.filter((transaction) =>
-            transaction.description
+    if (search.trim() || searchFilter !== "") {
+        transactions = transactions.filter((transaction) => {
+            const matchesSearch = transaction.description
                 .toLowerCase()
-                .includes(search.toLowerCase()),
-        );
+                .includes(search);
+            const matchesCategory = transaction.type
+                .toLowerCase()
+                .includes(searchFilter);
+            return matchesSearch && matchesCategory;
+        });
     }
 
     if (!transactions.length) return;
@@ -306,34 +407,38 @@ function transactionRender(search) {
 function pageLoad() {
     let user = userData.filter((user) => user.isLoggedIn);
     if (!user.length) {
-        hero.style.display = "none";
         main.style.display = "flex";
+        hero.style.display = "none";
         themeToggle(false);
         return;
     } else {
-        render(user[0].id);
+        render();
         return;
     }
 }
 
 pageLoad();
 
-
 function loadAddTransactionForm(tranID) {
     addTransactionForm.reset();
 
-
-
     if (tranID) {
-        let idx = userData.findIndex((user) => user.id === parseInt(userId.textContent));
+        let idx = userData.findIndex(
+            (user) => user.id === parseInt(userId.textContent),
+        );
 
-        transaction = userData[idx].transactions.filter((tran) => tran.id === tranID);
+        transaction = userData[idx].transactions.filter(
+            (tran) => tran.id === tranID,
+        );
 
         if (!transaction.length) {
             addTransactionHead.textContent = "Add Transaction";
             addTransactionForm.reset();
             return;
         }
+
+        console.log(transaction[0].category);
+        console.log(categoryInp.value);
 
         addTransactionHead.textContent = "Edit Transaction";
 
@@ -342,48 +447,48 @@ function loadAddTransactionForm(tranID) {
         addTransactionForm[2].value = transaction[0].description;
         addTransactionForm[3].value = transaction[0].amount;
         addTransactionForm[4].value = transaction[0].date;
-        addTransactionForm[5].value = transaction[0].category;
-
-    }
-    else {
+        categoryInp.value = transaction[0].category;
+    } else {
         addTransactionHead.textContent = "Add Transaction";
         addTransactionForm[0].value = "0";
     }
 
-    addTransaction.style.display = 'flex';
+    addTransaction.style.display = "flex";
 }
-
-
 
 function edit(tranId) {
     loadAddTransactionForm(tranId);
 }
 
 function del(tranId) {
-    let consent = confirm('Are you sure you want to delete this transaction?');
+    let consent = confirm("Are you sure you want to delete this transaction?");
     if (!consent) return;
 
     if (!tranId) {
-        alert('Transaction is invalid!!!');
+        alert("Transaction is invalid!!!");
         return;
     }
 
-    let idx = userData.findIndex((user) => user.id === parseInt(userId.textContent));
-    let tranIdx = userData[idx].transactions.findIndex((tran) => tran.id === tranId);
+    let idx = userData.findIndex(
+        (user) => user.id === parseInt(userId.textContent),
+    );
+    let tranIdx = userData[idx].transactions.findIndex(
+        (tran) => tran.id === tranId,
+    );
     userData[idx].transactions.splice(1, tranIdx);
     localStorage.setItem("userData", JSON.stringify(userData));
     render();
 }
 
-function submit(e) { //NTW on submit tranID is NaN 
+function submit(e) {
+    //NTW on submit tranID is NaN
     e.preventDefault();
 
-    let idx = userData.findIndex((user) => user.id === parseInt(userId.textContent));
+    let idx = userData.findIndex(
+        (user) => user.id === parseInt(userId.textContent),
+    );
 
-
-
-    let
-        id = parseInt(e.target[0].value),
+    let id = parseInt(e.target[0].value),
         type = e.target[1].value.toLowerCase(),
         description = e.target[2].value,
         amount = parseFloat(e.target[3].value).toFixed(2),
@@ -391,38 +496,30 @@ function submit(e) { //NTW on submit tranID is NaN
         category = e.target[5].value.toLowerCase();
 
     if (!id) {
-        let maxTranID = userData[idx].transactions.map((tran) => tran.id).sort((a, b) => b - a)[0];
+        let maxTranID = userData[idx].transactions
+            .map((tran) => tran.id)
+            .sort((a, b) => b - a)[0];
         id = maxTranID + 1;
     }
 
     if (!type || !description || !amount || !date || !category) {
-        alert('Please fill all the fields!!!');
+        alert("Please fill all the fields!!!");
         return;
     }
 
-    let transaction = new Transaction(id, amount, type, category, date, description);
+    let transaction = new Transaction(
+        id,
+        amount,
+        type,
+        category,
+        date,
+        description,
+    );
 
     userData[idx].transactions.unshift(transaction);
-    localStorage.setItem('userData', JSON.stringify(userData));
+    localStorage.setItem("userData", JSON.stringify(userData));
 
-    render(userData[idx].id);
-}
-
-function authToggle(flag) {
-    loginSignupForm.reset();
-    loginSignupTitle.textContent = flag ? "Create Account" : "Welcome Back";
-    loginSignupHead.textContent = flag
-        ? "Join FinTrack Pro"
-        : "Login to FinTrack Pro";
-    loginSignupUsername.textContent = flag ? "Choose a Username" : "Username";
-
-    loginBtn.style.display = flag ? "none" : "block";
-    signupBtn.style.display = flag ? "block" : "none";
-
-    spanBottom.textContent = flag
-        ? "Already have an account?"
-        : "Don't have an account?";
-    anchor.textContent = flag ? "Login here" : "Register here";
+    render();
 }
 
 function logOut() {
@@ -448,7 +545,7 @@ function resetAllData() {
     );
     userData[idx].transactions = [];
     localStorage.setItem("userData", JSON.stringify(userData));
-    render(userData[idx].id);
+    render();
 }
 
 loginSignupForm.addEventListener("submit", (e) => {
@@ -460,19 +557,42 @@ loginSignupForm.addEventListener("submit", (e) => {
     else if (e.submitter.matches("#signupBtn")) register(e);
 });
 
-anchor.addEventListener("click", () => authToggle(anchor.textContent.toLowerCase() === "register here"));
+anchor.addEventListener("click", () =>
+    authToggle(anchor.textContent.toLowerCase() === "register here"),
+);
 
+optionsList.addEventListener(
+    "click",
+    (e) => {
+        for (let i = 0; i < optionsList.children.length; i++)
+            optionsList.children[i].classList.remove("options-li-active");
+
+        if (e.target.closest("#dashboardOption")) {
+            e.target
+                .closest("#dashboardOption")
+                .classList.add("options-li-active");
+            render();
+        } else if (e.target.closest("#settingOption")) {
+            e.target
+                .closest("#settingOption")
+                .classList.add("options-li-active");
+            settingPage();
+        }
+    },
+    true,
+);
 
 addTranBtn.addEventListener("click", () => loadAddTransactionForm(0));
 addTransactionForm.addEventListener("submit", (e) => submit(e));
-closeAddTransaction.addEventListener("click", () => render(parseInt(userId.textContent)));
-
+closeAddTransaction.addEventListener("click", () => render());
 
 logout.addEventListener("click", () => logOut());
 
 // theme.addEventListener('click', themeToggle);
 themeSwitch.addEventListener("change", (e) => {
-    let idx = userData.findIndex((user) => user.id === Number(userId.textContent));
+    let idx = userData.findIndex(
+        (user) => user.id === Number(userId.textContent),
+    );
     userData[idx].isDark = e.target.checked;
     localStorage.setItem("userData", JSON.stringify(userData));
     themeToggle(e.target.checked);
@@ -480,6 +600,18 @@ themeSwitch.addEventListener("change", (e) => {
 
 reset.addEventListener("click", () => resetAllData());
 
-seacrhInp.addEventListener("keyup", (e) => transactionRender(e.target.value));
+seacrhInp.addEventListener("keyup", (e) => transactionRender());
+filterInp.addEventListener("change", (e) => transactionRender());
 
+settingForm.addEventListener("submit", (e) => {
+    e.preventDefault();
 
+    let idx = userData.findIndex(
+        (user) => user.id === parseInt(userId.textContent),
+    );
+    userData[idx].username = e.target[0].value;
+    userData[idx].currency = e.target[1].value;
+    localStorage.setItem("userData", JSON.stringify(userData));
+    alert("Settings updated successfully!!!");
+    settingPage();
+});

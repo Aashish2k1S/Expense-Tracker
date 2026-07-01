@@ -174,6 +174,7 @@ body {
     display: none;
 }
 
+.hero aside .top .options ul li:active, 
 .hero aside .top .options ul li:hover {
     background-color: var(--options-color);
     color: var(--add-btn-color);

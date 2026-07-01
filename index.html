@@ -15,7 +15,7 @@
 <body>
 
     <!-- #region HOME-PAGE -->
-    <div class="hero">
+    <div class="hero overflow">
 
         <!-- #region SIDE BAR -->
         <aside>
@@ -28,9 +28,9 @@
                     </div>
                 </div>
                 <div class="options">
-                    <ul>
-                        <li class="options-li-active"><i class="ri-layout-grid-line"></i><span>Dashboard</span></li>
-                        <li><i class="ri-settings-3-fill"></i><span>Settings</span></li>
+                    <ul class="optionsList">
+                        <li class="options-li-active" id="dashboardOption"><i class="ri-layout-grid-line"></i><span>Dashboard</span></li>
+                        <li id="settingOption"><i class="ri-settings-3-fill"></i><span>Settings</span></li>
                     </ul>
                 </div>
             </div>
@@ -158,7 +158,7 @@
                     <p>Manage your account profile and app formatting.</p>
                     <div id="settingPanel">
                         <h1 class="title">Profile Details</h1>
-                        <form action="">
+                        <form action="" id="settingForm">
                             <div class="inputs-div">
                                 <div id="usernameSettingDiv">
                                     <label for="username" id="usernameSettingLbl">Username</label>
@@ -197,8 +197,8 @@
                     <div class="inp">
                         <label for="type" id="typeLbl">Type</label>
                         <select name="type" id="typeInp">
-                            <option value="expense">Expense</option>
-                            <option value="income">Income</option>
+                            <!-- <option value="expense">Expense</option>
+                            <option value="income">Income</option> -->
                         </select>
                     </div>
 
